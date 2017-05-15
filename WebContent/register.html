@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"  media="screen,projection"/ />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+	</script>
+	
+<style type="text/css">
+body {
+    background-color: #ECEFF1;
+}
+
+/* Authentication */
+.auth {
+  margin-top: 50px;
+    text-align: center;
+}
+
+.logo {
+    text-align: center;
+    font-weight: 100;
+    font-size: 80px;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+}
+
+a.logo {
+    color: #5B5B5B;
+}
+
+a {
+    cursor: pointer;
+}
+
+.auth .card {
+    width: 500px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 480px) {
+  .auth .card {
+    width: 100%;
+  }
+  .logo {
+    font-size: 60px;
+  }
+}
+
+.auth .header {
+    font-size: 18px;
+}
+
+.auth .row {
+    margin-bottom: 0px;
+}
+
+.auth .username {
+  margin-top: 0px;
+}
+
+.auth .btn {
+    width: 90%;
+}
+
+.auth .footer {
+    border-top: 1px solid #E9E9E9;
+    padding-bottom: 21px;
+}
+.input-field input[type=email]:focus {
+     border-bottom: 1px solid #ff5252;
+     box-shadow: 0 1px 0 0 #ff8a80;
+   }
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid #ff5252;
+     box-shadow: 0 1px 0 0 #ff8a80;
+   }
+.input-field input[type=password]:focus {
+     border-bottom: 1px solid #ff5252;
+     box-shadow: 0 1px 0 0 #ff8a80;
+}
+.input-field input[type=radio] {
+	
+     color: red;
+     background-color: red;
+}
+.input-field input[type=radio]:checked:before {
+     color: red;
+     background-color:red;
+}
+.input-field input[class=with-gap]:checked:before {
+     color: red;
+     background-color:red;
+}
+.input-field select {
+ width: 100px;
+}
+</style>
+</head>
+<body>
+<form action="MemberAddController" method="get" onSubmit="formChk();return false">
+
+<div class="container auth">
+    <a class="logo">HOT CHOICE</a>
+    <div class="card">
+        <div class="header red lighten-1 white-text center">
+            <div class="card-content">REGISTER</div>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                
+                <div class="input-field col s12 username">
+                <input type="email" name="userid" id="userid" placeholder="abc@example.com" onkeyup="chkValidEmail()"/>  <span id="result1">준비중</span>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" name="passwd1" placeholder="비밀번호(6자 이상)"  onkeyup="passleng()" /><span id="result2"></span>
+                </div>
+                  <div class="input-field col s12">
+                    <input type="password" name="passwd" placeholder="비밀번호 확인" onkeyup="passConfirm()" /><span id="result3"></span>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" name="nickname" id="nickname" placeholder="닉네임" onkeyup="sendnickname()" /> <span id="result4"></span>
+                </div>
+                <div align="center">
+   					<div class="input-field col s12 m4">
+                  	<select id="year" name="year" size="1">
+						<option>년도</option>
+					</select>
+					</div>
+					<div class="input-field col s12 m4">
+					<select id="month" name="month">
+						<option>월</option>
+					</select>
+					</div>
+					<div class="input-field col s12 m4">
+					<select id="day" name="day">
+						<option>일</option>
+					</select>
+                </div>
+                </div>
+                <div class="col s12">
+               <div class="center">
+				 	 <input class="with-gap" style="" type="radio" name="gender" value="m" id="test3" /><label for="test3">남</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				 <input class="with-gap"  type="radio" name="gender" value="w" id="test4" /><label for="test4">여</label><br><br>
+				 </div>
+				 </div>
+                 <div class="col s12">
+                <button class="waves-effect waves-light red accent-4 btn" type="submit">OK</button>
+                </div>
+            </div>
+        </div>
+        
+       
+        <div class="footer">
+            <div class="card-content">
+                <div class="right" >
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+<div style="height:200px"></div>
+</body>
+</html>

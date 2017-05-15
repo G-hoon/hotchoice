@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.BoardMapper">
+
+
+
+   <update id="Voting_Update" parameterType="hashmap">
+      update vote_record
+      set vote_num=#{b} where num = #{a} and nickname=#{c}
+   </update>
+
+	<!-- vote result: 해당 닉네임이 투표를 했냐 안했냐 -->
+	<select id="voting_result" resultType="RecordDTO" parameterType="int">
+     select nickname, vote_num from vote_record
+     where num = #{num}
+   </select>
+   
+   <!-- vote result2 : 해당 닉네임이 투표를 어떤 것을 했는지 확인하기 위함 -->
+   <select id="voting_result2" resultType="RecordDTO" parameterType="hashmap">
+     select vote_num from vote_record
+     where num = #{a} and nickname=#{c}
+   </select> 
+   <!-- vote result3 : 각 1번, 2번, 3번, 4번의 투표 개수 -->
+   <select id="voting_result3" resultType="int" parameterType="hashmap">
+     select count(*) from vote_record
+     where num = #{a} and vote_num = #{b}
+   </select>
+   
+   <insert id="voting" parameterType="RecordDTO">
+    insert into vote_record ( idx, num, vote_num, nickname)
+    values ( myvote_seq.nextval, #{num}, #{vote_num},#{nickname})
+   </insert>
+  
+  <select id="searchMulti" parameterType="arraylist"  resultType="VoteDTO">
+    select * from myvote
+    <where>
+      sal IN 
+      <foreach item="xxx" index="i" collection="list"
+      open="(" separator="," close=")">
+        #{xxx}
+      </foreach> 
+    </where>
+  </select>
+  
+	<select id="voteRetrieve" resultType="VoteDTO" parameterType="int">
+     select num,userid,vcontent1,vcontent2,vcontent3,vcontent4,vcontent5,vimage1,vimage2,vimage3,vimage4,vimage5
+     from myvote
+     where num = #{num}
+   </select>
+
+ <insert id="voteWrite" parameterType="arraylist">
+     insert all
+     <foreach collection="list" item="xxx">
+       into myvote ( num,userid,vcontent1,vcontent2,vcontent3,vcontent4,vcontent5,vimage1,vimage2,vimage3,vimage4,vimage5)
+    values ( myboard_seq.currval, #{xxx.userid},#{xxx.vcontent1},#{xxx.vcontent2},#{xxx.vcontent3},#{xxx.vcontent4},#{xxx.vcontent5},
+    #{xxx.vimage1},#{xxx.vimage2},#{xxx.vimage3}, #{xxx.vimage4},#{xxx.vimage5})
+     </foreach>
+     select * from dual
+   </insert>
+
+ 
+   <select id="totalRecord" resultType="int">
+      select count(*)
+       from myboard
+   </select>
+ 
+   <select id="" 
+      parameterType="hashmap" resultType="BoardDTO">
+     select num,author,title,
+             to_char(writeday,'YYYY/MM/dd') writeday 
+             , readcnt,userid
+     from myboard
+     <if test="searchName == 'title'">
+       where title LIKE  '%'||#{searchValue}||'%'
+     </if>
+     <if test="searchName == 'author'">
+       where author LIKE '%'||#{searchValue}||'%'
+     </if>
+     
+     order by num desc
+   </select>
+
+
+   <update id="boardUpdate" parameterType="hashmap">
+      update myboard
+      set title=#{b}, author=#{c} , content=#{d}
+      where num = #{a}
+   </update>
+
+   <delete id="boardDelete" parameterType="int">
+   	  delete from myboard
+   	  where num = #{num}
+   </delete>
+
+   <update id="boardReadcnt" parameterType="int">
+      update myboard
+      set readcnt = readcnt + 1
+      where num = #{num}
+   </update>
+
+   <select id="boardRetrieve" resultType="BoardDTO" parameterType="int">
+     select num,author,title, content,
+             to_char(writeday,'YYYY/MM/dd') writeday ,
+              readcnt,userid
+     from myboard
+     where num = #{num}
+   </select>
+
+   <insert id="boardWrite" parameterType="BoardDTO">
+    insert into myboard ( num,title,author,content,userid)
+    values ( myboard_seq.nextval, #{title},#{author}
+         ,#{content},#{userid})
+   </insert>
+      <select id="voteRetrieve2" resultType="VoteDTO">
+     select num,userid,vcontent1,vcontent2,vcontent3,vcontent4,vcontent5,vimage1,vimage2,vimage3,vimage4,vimage5
+     from myvote
+     
+   </select>
+   <select id="boardList" resultType="BoardDTO">
+     select num,author,title, content,
+             to_char(writeday,'YYYY/MM/dd') writeday
+              , readcnt,userid
+     from myboard
+     order by num desc
+   </select>
+</mapper>

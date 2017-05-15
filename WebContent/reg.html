@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/check.js"></script>
+<script type="text/javascript">
+
+
+</script>
+<style type="text/css">
+fieldset.top{
+width: 300px;
+background-color:#a5c7ff;
+font-size:15px;
+}
+fieldset.sub{
+width: 300px;
+font-size:15px;
+}
+
+
+</style>
+</head>
+<body>
+123
+<form action="컨트롤러 이름" method="get">
+
+<fieldset class=top>
+    <legend>회원등록</legend>
+     <p><input type="email" name="myemail" id="myemail" placeholder="abc@example.com" onkeyup="chkValidEmail()"/>  <span id="result1">준비중</span></p>
+    <p><input type="password" name="passwd1" placeholder="비밀번호(6자 이상)"  onkeyup="passleng()" /><span id="result2"></span></p>
+  	<p><input type="password" name="passwd" placeholder="비밀번호 확인" onkeyup="passConfirm()" /><span id="result3"></span></p>
+  	<input type="text" name="nickName" id="nickName" placeholder="닉네임" />
+   <p>남<input type="radio" name="gender" value="m"> 여 <input type="radio" name="gender" value="w"></p>
+
+					<select id="year" name="year">
+						<option>년도</option>
+					</select>
+					<select id="month" name="month">
+						<option>월</option>
+					</select>
+					<select id="day" name="day">
+						<option>일</option>
+					</select>
+   </fieldset>
+   <fieldset class=sub>
+	<input type="submit" value="회원가입">
+   </fieldset>
+</form>
+
+</body>
+</html>
