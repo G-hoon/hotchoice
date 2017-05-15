@@ -4,7 +4,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.BoardMapper">
 
-
+<select id="List_result" resultType="ListDTO">
+select vote_record.num, myboard.title, myboard.author, myboard.userid, 
+myboard.writeday, (select count(*) from vote_record where vote_num=1 and num=myboard.num), 
+(select count(*) from vote_record where vote_num=2 and num=myboard.num), 
+(select count(*) from vote_record where vote_num=3 and num=myboard.num),
+(select count(*) from vote_record where vote_num=4 and num=myboard.num), 
+(select count(*) from vote_record where vote_num=5 and num=myboard.num)
+ from myboard, vote_record
+where vote_record.num = myboard.num;
+</select>
 
    <update id="Voting_Update" parameterType="hashmap">
       update vote_record
