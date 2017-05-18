@@ -26,20 +26,23 @@ public class BoardListServlet extends HttpServlet {
 		//HttpSession session = request.getSession();
 		//MemberDTO mto = (MemberDTO)session.getAttribute("login");
 		BoardService service = new BoardService();
-		BoardDTO bto = new BoardDTO();
-		VoteDTO vto = new VoteDTO();
-		List<BoardDTO> bto2 = service.boardList();
-		List<VoteDTO> vto2 = service.voteRetrieve2();
-		/*public ListDTO(int num, String author, String title, String content, String writeday, int readcnt, String userid,
-		String vcontent1, String vcontent2, String vcontent3, String vcontent4, String vcontent5, String vimage1,
-		String vimage2, String vimage3, String vimage4, String vimage5)*/ 
-		bto2.get(0).getAuthor();
+		List<ListDTO> lto = service.List_result();
+		List<VoteDTO> vto = service.voteRetrieve2();
+		/*	public ListDTO(int num, String author, String title, String content, String writeday, int readcnt, String userid,
+			String vcontent1, String vcontent2, String vcontent3, String vcontent4, String vcontent5, String vimage1,
+			String vimage2, String vimage3, String vimage4, String vimage5, int votecount1, int votecount2,
+			int votecount3, int votecount4, int votecount5) {*/ 
+		
 		ArrayList<ListDTO> list = new  ArrayList<>();
-		for(int index=0;index<bto2.size();++index){
-			list.add(new ListDTO(bto2.get(index).getNum(), bto2.get(index).getAuthor(), bto2.get(index).getTitle(), 
-					bto2.get(index).getContent(), bto2.get(index).getWriteday(), bto2.get(index).getReadcnt(), 
-					bto2.get(index).getUserid(), vto2.get(index).getVcontent1(), vto2.get(index).getVcontent2(), vto2.get(index).getVcontent3(), vto2.get(index).getVcontent4(), vto2.get(index).getVcontent5(), 
-					vto2.get(index).getVimage1(), vto2.get(index).getVimage2(), vto2.get(index).getVimage3(), vto2.get(index).getVimage4(), vto2.get(index).getVimage5()));
+		for(int index=0;index<lto.size();++index){
+			list.add(new ListDTO(lto.get(index).getNum(), lto.get(index).getAuthor(), lto.get(index).getTitle(), 
+					lto.get(index).getContent(), lto.get(index).getWriteday(), lto.get(index).getReadcnt(), 
+					lto.get(index).getUserid(), vto.get(index).getVcontent1(), vto.get(index).getVcontent2(), 
+					vto.get(index).getVcontent3(), vto.get(index).getVcontent4(), vto.get(index).getVcontent5(), 
+					vto.get(index).getVimage1(), vto.get(index).getVimage2(), vto.get(index).getVimage3(), 
+					vto.get(index).getVimage4(), vto.get(index).getVimage5(),
+					lto.get(index).getVotecount1(), lto.get(index).getVotecount2(), lto.get(index).getVotecount3(), 
+					lto.get(index).getVotecount4(), lto.get(index).getVotecount5()));
 		}
 
 		
@@ -87,6 +90,7 @@ public class BoardListServlet extends HttpServlet {
 		RequestDispatcher dis = request.getRequestDispatcher("list.jsp");
 		dis.forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

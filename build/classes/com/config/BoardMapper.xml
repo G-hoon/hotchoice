@@ -5,14 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.acorn.BoardMapper">
 
 <select id="List_result" resultType="ListDTO">
-select vote_record.num, myboard.title, myboard.author, myboard.userid, 
-myboard.writeday, (select count(*) from vote_record where vote_num=1 and num=myboard.num), 
-(select count(*) from vote_record where vote_num=2 and num=myboard.num), 
-(select count(*) from vote_record where vote_num=3 and num=myboard.num),
-(select count(*) from vote_record where vote_num=4 and num=myboard.num), 
-(select count(*) from vote_record where vote_num=5 and num=myboard.num)
- from myboard, vote_record
-where vote_record.num = myboard.num;
+select distinct myboard.num, myboard.author, myboard.title, myboard.content,
+myboard.writeday, myboard.userid, 
+(select count(*) from vote_record where vote_num=1 and num=myboard.num) as votecount1, 
+(select count(*) from vote_record where vote_num=2 and num=myboard.num) as votecount2, 
+(select count(*) from vote_record where vote_num=3 and num=myboard.num) as votecount3,
+(select count(*) from vote_record where vote_num=4 and num=myboard.num) as votecount4, 
+(select count(*) from vote_record where vote_num=5 and num=myboard.num) as votecount5
+ from myboard full outer join vote_record
+on vote_record.num = myboard.num order by num desc
 </select>
 
    <update id="Voting_Update" parameterType="hashmap">

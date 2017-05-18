@@ -258,8 +258,8 @@ window.onload = function() {
 	};
 }
 var vote_num = '<c:out value="${voting_result2.vote_num}"/>';
-function abc(x){
-	
+function VoteImgchange(x){
+	console.log(x.find('.voteimg'));
 	x.find('.voteimg').each (function() {
 		 if(vote_num == this.id){
 			 $(this).attr("src", "img/votecomplete.jpg");
@@ -285,18 +285,10 @@ function abc(x){
 			//	$(this).style.display = 'block';
 			}
 		})
-	
-	
 }
 $(document).ready(function(){
-	abc($(this));
-	
-
-		
+	VoteImgchange($(this));
 });
-
-
-
 </script>
  <c:if test="${login.userid == boardRetrieve.userid || login.userid == null}">
    <script>
@@ -306,9 +298,7 @@ $(document).ready(function(){
    </script>
 </c:if>
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
-<c:if test="${login.nickname != voting_result2.nickname}">
 <script>
-console.log("이 아이디는 투표 안했음");
 $(document).ready(function() {
 	
     $('.voteimg').click(function (event)
@@ -351,21 +341,6 @@ $(document).ready(function() {
 					 $(this).attr("onclick");
 				 }
 				})
-				/*
-				(".voting").children('img').each(function(){
-				if(vote_num == this.id){
-				$(this).attr("src", "img/votecomplete.jpg");
-				$(this).removeAttr("onclick");
-				$(this).unbind('mouseenter mouseleave');
-				}else{
-					$(this).attr("src", "img/votechange.jpg");
-					$(this).removeAttr("onclick");
-					$(this).unbind('mouseenter mouseleave');
-					
-					
-		}
-	})*/
-				
 			},
 			error:function(error){
 				console.log(error);
@@ -374,7 +349,6 @@ $(document).ready(function() {
     });
 });
 </script>
-</c:if>
 </head>
 <body>
 <!--  z-index: 3; position: absolute; -->
@@ -425,7 +399,7 @@ $(document).ready(function() {
 <div class="container memo" style="width: 80%">
   <div class="card">
     <div class="info">
-      <a class="username">${xxx.title}</a> &nbsp;&nbsp;&nbsp;${xxx.writeday}
+      <a class="username">${xxx.title}</a>${xxx.num} &nbsp;&nbsp;&nbsp;${xxx.writeday}
       <div class="option-button">
         <a class='dropdown-button' id='dropdown-button-id' data-activates='dropdown-id'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-id' class='dropdown-content'>
@@ -459,6 +433,7 @@ $(document).ready(function() {
 </c:if>
 <tr><th><img src=img/voteimg.jpg class="voteimg" id="1"></th></tr>
 </table>
+<div id="v1" align="center">${xxx.votecount1}</div>
 </div>
     
     
@@ -481,6 +456,7 @@ $(document).ready(function() {
 </c:if>
 <tr><th><img src=img/voteimg.jpg class="voteimg" id="2"></th></tr>
 </table>
+<div id="v2" align="center">${xxx.votecount2}</div>
 </div>
 
 <c:if test = "${xxx.vcontent3 ne null || xxx.vimage3 ne null}">
@@ -498,7 +474,7 @@ $(document).ready(function() {
 </c:if>
 <tr><th><img src=img/voteimg.jpg class="voteimg" id="3"></th></tr>
 </table>
-<div id="v3" align="center">${voting_result3[2]}</div>
+<div id="v3" align="center">${xxx.votecount3}</div>
 </div>
 </c:if>
 
@@ -517,7 +493,7 @@ $(document).ready(function() {
 </c:if>
 <tr><th><img src=img/voteimg.jpg class="voteimg" id="4"></th></tr>
 </table>
-<div id="v4" align="center">${voting_result3[3]}</div>
+<div id="v4" align="center">${xxx.votecount4}</div>
 </div>
 </c:if>
 
@@ -536,7 +512,7 @@ $(document).ready(function() {
 </c:if>
 <tr><th><img src=img/voteimg.jpg class="voteimg" id="5"></th></tr>
 </table>
-<div id="v5" align="center">${voting_result3[4]}</div>
+<div id="v5" align="center">${xxx.votecount5}</div>
 </div>
 </c:if>
 

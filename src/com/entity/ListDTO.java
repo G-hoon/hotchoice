@@ -18,15 +18,22 @@ public class ListDTO {
 	private String vimage3;
 	private String vimage4;
 	private String vimage5;
+	private int votecount1;
+	private int votecount2;
+	private int votecount3;
+	private int votecount4;
+	private int votecount5;
 	
 	
 	public ListDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public ListDTO(int num, String author, String title, String content, String writeday, int readcnt, String userid,
 			String vcontent1, String vcontent2, String vcontent3, String vcontent4, String vcontent5, String vimage1,
-			String vimage2, String vimage3, String vimage4, String vimage5) {
+			String vimage2, String vimage3, String vimage4, String vimage5, int votecount1, int votecount2,
+			int votecount3, int votecount4, int votecount5) {
 		super();
 		this.num = num;
 		this.author = author;
@@ -45,7 +52,53 @@ public class ListDTO {
 		this.vimage3 = vimage3;
 		this.vimage4 = vimage4;
 		this.vimage5 = vimage5;
+		this.votecount1 = votecount1;
+		this.votecount2 = votecount2;
+		this.votecount3 = votecount3;
+		this.votecount4 = votecount4;
+		this.votecount5 = votecount5;
 	}
+	
+	public int getVotecount1() {
+		return votecount1;
+	}
+
+	public void setVotecount1(int votecount1) {
+		this.votecount1 = votecount1;
+	}
+
+	public int getVotecount2() {
+		return votecount2;
+	}
+
+	public void setVotecount2(int votecount2) {
+		this.votecount2 = votecount2;
+	}
+
+	public int getVotecount3() {
+		return votecount3;
+	}
+
+	public void setVotecount3(int votecount3) {
+		this.votecount3 = votecount3;
+	}
+
+	public int getVotecount4() {
+		return votecount4;
+	}
+
+	public void setVotecount4(int votecount4) {
+		this.votecount4 = votecount4;
+	}
+
+	public int getVotecount5() {
+		return votecount5;
+	}
+
+	public void setVotecount5(int votecount5) {
+		this.votecount5 = votecount5;
+	}
+
 	public int getNum() {
 		return num;
 	}

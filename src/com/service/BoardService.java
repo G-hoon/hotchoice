@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
 import com.entity.BoardDTO;
+import com.entity.ListDTO;
 import com.entity.RecordDTO;
 import com.entity.VoteDTO;
 
@@ -219,6 +220,16 @@ public class BoardService {
 		List<BoardDTO> list = null;
 		try{
 			list = session.selectList(namespace+"boardList");		
+		}finally {
+			session.close();
+		}
+		return list;
+	}//end 
+	public List<ListDTO> List_result(){
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<ListDTO> list = null;
+		try{
+			list = session.selectList(namespace+"List_result");
 		}finally {
 			session.close();
 		}
