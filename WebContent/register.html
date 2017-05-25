@@ -7,8 +7,9 @@
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"  media="screen,projection"/ />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/check.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+<script type="text/javascript" src="js/check.js?v=1"></script>
+<script type="text/javascript" src="js/datesgenerator.js?v=2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
 	<script>
 	$(document).ready(function() {
 		$('select').material_select();
@@ -125,7 +126,7 @@ a {
             <div class="row">
                 
                 <div class="input-field col s12 username">
-                <input type="email" name="userid" id="userid" placeholder="abc@example.com" onkeyup="chkValidEmail()"/>  <span id="result1">준비중</span>
+                <input type="email" name="userid" placeholder="abc@example.com" onkeyup="chkValidEmail()"/>  <span id="result1">준비중</span>
                 </div>
                 <div class="input-field col s12">
                     <input type="password" name="passwd1" placeholder="비밀번호(6자 이상)"  onkeyup="passleng()" /><span id="result2"></span>
@@ -134,7 +135,7 @@ a {
                     <input type="password" name="passwd" placeholder="비밀번호 확인" onkeyup="passConfirm()" /><span id="result3"></span>
                 </div>
                 <div class="input-field col s12">
-                    <input type="text" name="nickname" id="nickname" placeholder="닉네임" onkeyup="sendnickname()" /> <span id="result4"></span>
+                    <input type="text" name="nickname" placeholder="닉네임" onkeyup="sendnickname()" /> <span id="result4"></span>
                 </div>
                 <div align="center">
    					<div class="input-field col s12 m4">

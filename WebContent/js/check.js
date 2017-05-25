@@ -1,36 +1,3 @@
-//날짜 출력 for loop
-$(document).ready(function() { 
-            var cur_year=new Date().getFullYear();
-            var obj=document.getElementById("year");         
-            for (var i = 1970; i <= 2008; i++)     {                
-                opt = document.createElement("option");
-                opt.value = i;
-                opt.text=i;
-                obj.appendChild(opt);
-            }
-});
-
-$(document).ready( function() { 
-    var cur_year=new Date().getFullYear();
-    var obj=document.getElementById("month");         
-    for (var i = 1; i <= 12; i++)     {                
-        opt = document.createElement("option");
-        opt.value = i;
-        opt.text=i;
-        obj.appendChild(opt);
-    }
-});
-
-$(document).ready( function() { 
-    var cur_year=new Date().getFullYear();
-    var obj=document.getElementById("day");         
-    for (var i = 1; i <= 31; i++)     {                
-        opt = document.createElement("option");
-        opt.value = i;
-        opt.text=i;
-        obj.appendChild(opt);
-    }
-});
 
 //비밀번호 길이체크
 function passleng(){
@@ -87,7 +54,7 @@ function getXMLHttpRequest(){
 
 function sendid(){
 	 
-	 var userid = document.getElementById("userid").value;
+	 var userid = document.getElementsByName('userid')[0].value;
 	 console.log("userid :"+userid);
 	 getXMLHttpRequest();
 	 //이벤트 등록(서버가 응답하는 이벤트)
@@ -99,7 +66,7 @@ function sendid(){
 }//end send
 function sendnickname(){
 	 
-	 var nickname = document.getElementById("nickname").value;
+	 var nickname = document.getElementsByName('nickname')[0].value;
 	 console.log("nickname :"+nickname);
 	 getXMLHttpRequest();
 	 //이벤트 등록(서버가 응답하는 이벤트)

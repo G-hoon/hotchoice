@@ -47,7 +47,7 @@ public class MemberService {
 	 throws CommonException{
 		SqlSession session = MySqlSessionFactory.openSession();
 		try{
-int n = session.insert(namespace+"addMember", dto);
+			int n = session.insert(namespace+"addMember", dto);
         session.commit();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -56,4 +56,19 @@ int n = session.insert(namespace+"addMember", dto);
 			session.close();
 		}
 	}//end addMember
+
+	public void upadteMember(HashMap<String, String> map)
+			 throws CommonException{
+				SqlSession session = MySqlSessionFactory.openSession();
+				try{
+					int n = session.update(namespace+"updateMember", map);
+					session.commit();
+				}catch(Exception e){
+					e.printStackTrace();
+					throw new CommonException("회원수정 실패");
+				}finally {
+					session.close();
+				}
+			}//end updateMember
+	
 }

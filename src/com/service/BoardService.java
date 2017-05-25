@@ -26,40 +26,11 @@ public class BoardService {
 			}
 		 return count;
 	 }//end totalRecord
-	
-	//8. 페이징
-	 /*
-		public PageDTO boardPage(int curPage){
-			PageDTO page = new PageDTO();
-			
-			SqlSession session = MySqlSessionFactory.openSession();
-			List<BoardDTO> list = null;
-			int skip = (curPage - 1) *page.getPerPage();
-			try{
-		list =
-		session.selectList(namespace+"boardList",
-				          null,new RowBounds(skip, page.getPerPage()) );		
-			}finally {
-				session.close();
-			}
-			//PageDTO에 4가지 정보 저장
-			page.setList(list);
-			page.setCurPage(curPage);
-			page.setTotalRecord(totalRecord());
-
-			return page;
-		}//end 
-	
-	
-	*/
-	
-	
-	
-	
+	 
 	//7. 검색
-	 public List<BoardDTO> boardSearch(HashMap<String, String> map){
+	 public List<ListDTO> boardSearch(HashMap<String, String> map){
 			 SqlSession session = MySqlSessionFactory.openSession();
-			 List<BoardDTO> list = null;
+			 List<ListDTO> list = null;
 			 try{
 				 list = session.selectList("boardSearch", map);
 				}finally {
@@ -107,8 +78,6 @@ public class BoardService {
 	
 	//3.글자세히보기
 	 public BoardDTO boardRetrieve(int num){
-		 //조회수 증가
-		 boardReadcnt(num);
 		 SqlSession session = MySqlSessionFactory.openSession();
 			BoardDTO dto = null;
 		   try{
@@ -155,12 +124,7 @@ public class BoardService {
 		}
 	}
 	///투표변경
-	/*   <update id="Voting_Update" parameterType="hashmap">
-    update vote_record
-    set vote_num=#{b} where num = #{a}
- </update>
-
-*/	public void Voting_Update(HashMap<String, String> map){
+	public void Voting_Update(HashMap<String, String> map){
 		 SqlSession session = MySqlSessionFactory.openSession();
 			try{
 				session.update(namespace+"Voting_Update", map);
@@ -192,7 +156,7 @@ public class BoardService {
 		}
 		return rtd;
 	}
-	//3.투표 보기
+	//3.투표 보기 이전 ver
 	 public VoteDTO voteRetrieve(int num){
 		 SqlSession session = MySqlSessionFactory.openSession();
 			VoteDTO vto = null;
@@ -203,7 +167,7 @@ public class BoardService {
 			}
 		   return vto;
 	 }
-	 //
+	 //투표보기 list dto로 인한 ver
 	 public List<VoteDTO> voteRetrieve2(){
 		 SqlSession session = MySqlSessionFactory.openSession();
 		 List<VoteDTO> list = null;
@@ -235,5 +199,16 @@ public class BoardService {
 		}
 		return list;
 	}//end 
+	
+	public List<ListDTO> List_result2(String nickname){
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<ListDTO> list = null;
+		try{
+			list = session.selectList(namespace+"List_result2", nickname);
+		}finally {
+			session.close();
+		}
+		return list;
+	}
 	
 }

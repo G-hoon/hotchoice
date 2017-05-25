@@ -23,8 +23,7 @@ public class MyPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		 HttpSession session = request.getSession();
-		 MemberDTO dto = 
-				 (MemberDTO)session.getAttribute("login");
+		 MemberDTO dto =  (MemberDTO)session.getAttribute("login");
 		 // 여기서 원래 ==> 로그인하지 않고 직접  MyPage 요청처리
 		 String userid = dto.getUserid();
 		 
@@ -41,8 +40,7 @@ public class MyPageController extends HttpServlet {
 		}
 		
 		
-		  RequestDispatcher dis =
-	        		request.getRequestDispatcher(target);
+		  RequestDispatcher dis = request.getRequestDispatcher(target);
 	        dis.forward(request, response);
 	        
 	}

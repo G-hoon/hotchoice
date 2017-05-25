@@ -18,22 +18,38 @@ public class ListDTO {
 	private String vimage3;
 	private String vimage4;
 	private String vimage5;
-	private int votecount1;
-	private int votecount2;
-	private int votecount3;
-	private int votecount4;
-	private int votecount5;
+	private Integer votecount1;
+	private Integer votecount2;
+	private Integer votecount3;
+	private Integer votecount4;
+	private Integer votecount5;
+	private Integer vote_num;
+
 	
 	
+	
+	@Override
+	public String toString() {
+		return "ListDTO [num=" + num + ", author=" + author + ", title=" + title + ", content=" + content
+				+ ", writeday=" + writeday + ", readcnt=" + readcnt + ", userid=" + userid + ", vcontent1=" + vcontent1
+				+ ", vcontent2=" + vcontent2 + ", vcontent3=" + vcontent3 + ", vcontent4=" + vcontent4 + ", vcontent5="
+				+ vcontent5 + ", vimage1=" + vimage1 + ", vimage2=" + vimage2 + ", vimage3=" + vimage3 + ", vimage4="
+				+ vimage4 + ", vimage5=" + vimage5 + ", votecount1=" + votecount1 + ", votecount2=" + votecount2
+				+ ", votecount3=" + votecount3 + ", votecount4=" + votecount4 + ", votecount5=" + votecount5
+				+ ", vote_num=" + vote_num + "]";
+	}
+
+
 	public ListDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+
 	public ListDTO(int num, String author, String title, String content, String writeday, int readcnt, String userid,
 			String vcontent1, String vcontent2, String vcontent3, String vcontent4, String vcontent5, String vimage1,
-			String vimage2, String vimage3, String vimage4, String vimage5, int votecount1, int votecount2,
-			int votecount3, int votecount4, int votecount5) {
+			String vimage2, String vimage3, String vimage4, String vimage5, Integer votecount1, Integer votecount2,
+			Integer votecount3, Integer votecount4, Integer votecount5, Integer vote_num) {
 		super();
 		this.num = num;
 		this.author = author;
@@ -57,47 +73,70 @@ public class ListDTO {
 		this.votecount3 = votecount3;
 		this.votecount4 = votecount4;
 		this.votecount5 = votecount5;
+		this.vote_num = vote_num;
 	}
+
+
+	public Integer getVote_num() {
+		return vote_num;
+	}
+
+
+	public void setVote_num(Integer vote_num) {
+		this.vote_num = vote_num;
+	}
+
 	
-	public int getVotecount1() {
+
+	public Integer getVotecount1() {
 		return votecount1;
 	}
 
-	public void setVotecount1(int votecount1) {
+
+	public void setVotecount1(Integer votecount1) {
 		this.votecount1 = votecount1;
 	}
 
-	public int getVotecount2() {
+
+	public Integer getVotecount2() {
 		return votecount2;
 	}
 
-	public void setVotecount2(int votecount2) {
+
+	public void setVotecount2(Integer votecount2) {
 		this.votecount2 = votecount2;
 	}
 
-	public int getVotecount3() {
+
+	public Integer getVotecount3() {
 		return votecount3;
 	}
 
-	public void setVotecount3(int votecount3) {
+
+	public void setVotecount3(Integer votecount3) {
 		this.votecount3 = votecount3;
 	}
 
-	public int getVotecount4() {
+
+	public Integer getVotecount4() {
 		return votecount4;
 	}
 
-	public void setVotecount4(int votecount4) {
+
+	public void setVotecount4(Integer votecount4) {
 		this.votecount4 = votecount4;
 	}
 
-	public int getVotecount5() {
+
+	public Integer getVotecount5() {
 		return votecount5;
 	}
 
-	public void setVotecount5(int votecount5) {
+
+	public void setVotecount5(Integer votecount5) {
 		this.votecount5 = votecount5;
 	}
+
 
 	public int getNum() {
 		return num;

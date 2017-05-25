@@ -25,15 +25,14 @@ public class LogoutController extends HttpServlet {
 		
 		 HttpSession session = request.getSession();
 		 // 로그인 하지 않고 LogoutController 요청 가능
-		 MemberDTO dto =
-				 (MemberDTO)session.getAttribute("login");
-		 String target = "";
+		 MemberDTO dto =  (MemberDTO)session.getAttribute("login");
+		 String target = "Home";
 		 if(dto == null){ //로그인 안됨
-			 target="LoginFormController";
+			// target="LoginFormController";
 			 request.setAttribute("loginFail", "로그인 후 시도하세요");
 		 }else{  // 로그인 됨.
 			 session.invalidate();
-			 target="Home";
+			// target="Home";
 		 }
 		 
 		 

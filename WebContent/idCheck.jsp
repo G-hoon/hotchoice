@@ -9,8 +9,7 @@
   SqlSession sess = MySqlSessionFactory.openSession();
    int result = 0;
   try{
-	 result = 
-     sess.selectOne("com.acorn.MemberMapper.idCheck",userid); 
+	 result =  sess.selectOne("com.acorn.MemberMapper.idCheck",userid); 
   }catch(Exception e){
 	  e.printStackTrace();
   }finally{

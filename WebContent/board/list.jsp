@@ -14,98 +14,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/card.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
 <style type="text/css">
-html {
-font-family: GillSans, Calibri, Trebuchet, sans-serif;
-position: relative;
-  overflow-x: hidden;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -ms-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
-}
-body {
- 
-  background-color: #ECEFF1;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.stuck {
-	margin-top: 0px;
-    position: fixed;
-    top: 50px;
-    left: 0px;
-    bottom: 10px;
-    width: 280px;
-    overflow-y: auto;
-    background-color: #eee;
-}
-.not-stuck {
-    margin-left: 300px;
-}
 
 
-.xnav {
-  position:relative;
-  background: #232128;
-  width: 100%;
-  left: 0%;
-  bottom: 0%;
-  top: 0%;
-  zoom: 1;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -ms-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
-}
 
-
-.xnav-wrapper {
-  -webkit-overflow-scrolling: touch;
-  height: 100%;
-}
-
-.xnav ul {
-  margin: 0px;
-  padding: 0px;
-}
-
-.xnav ul ul {
-  padding-left: 30px;
-  font-size: 5px;
-}
-
-.sf-menu li {
-  float: none;
-  margin: 0px!important;
-  background: #232128!important;
-}
-
-.sf-menu a,
-.sf-menu .first a {
-  background-image: none!important;
-  color: white!important;
-  padding: 15px;
-  margin-left: 0px;
-  margin-right: 0px;
-  display: block;
-  border-bottom: 1px solid #3f3b49;
-  -webkit-transition: all .2s linear;
-  -moz-transition: all .2s linear;
-  -ms-transition: all .2s linear;
-  -o-transition: all .2s linear;
-  transition: all .2s linear;
-  text-decoration: none;
-}
-
-.sf-menu a:hover {
-  background-color: #3f3b49!important;
-  padding-left: 20px;
-}
 textarea
 {
     resize: none;
@@ -135,6 +49,7 @@ textarea
     border-radius: 6px;
     cursor: pointer;
     transition: 0.3s;
+   
 }
 
 .myImg:hover {opacity: 0.7;}
@@ -225,30 +140,118 @@ div.voting img {
         width: 100%;
     }
 }
+.memo .info {
+  font-size: 18px;
+  padding: 20px 20px 0px 20px;
+  color: #90A4AE;
+}
 
+.memo .info .username {
+  color: #263238;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.memo .card-content {
+  word-wrap: break-word;
+}
+
+.memo .option-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.icon-button {
+  color: #9e9e9e;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: #C5C5C5;
+}
+
+.icon-button:hover {
+  color: #C5C5C5;
+}
+
+.icon-button:active {
+  color: #ff9800;
+}
+
+.memo .card-content {
+  font-size: 18px;
+}
+
+.memo .footer {
+  border-top: 1px solid #ECECEC;
+  height: 45px;
+}
+
+.star {
+  position: relative;
+  left: 15px;
+  top: 11px;
+}
+
+.star-count {
+  position: relative;
+  left: 20px;
+  top: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #777;
+}
+.wrapper {
+    margin-top: 20px;
+}
 
 </style>
 <script>
+var session_login = '${sessionScope.login}';
 window.onload = function() {
 	var modal = document.getElementById('myModal');
 	var modalImg = document.getElementById("img01");
 	var captionText = document.getElementById("caption");
+	console.log($("input[value=223]").attr("id"));
+	
 	
 	$(".myImg").click(function(){
 	    modal.style.display = "block";
 	    modalImg.src = this.src;
 	    captionText.innerHTML = this.alt;
-	    var t = this.id;
+	    var root_this = this;
+	    var board_num = this.name;
+	    var vote_num = $('input[value='+board_num+']').attr("id");
+	 //   console.log("vnum: "+vote_num+" / "+board_num)
+	    //modal창 투표버튼 활성, 비활성화
 	    $(".voting").children('img').each(function(){
-			if(this.id == t){
+			if(this.id == root_this.id && session_login != ""){
 				this.style.display = 'block';
+				this.alt = board_num;
+				console.log("vote_num : "+vote_num);
+				if(vote_num == this.id){
+					 $(this).attr("src", "img/votecomplete.jpg");
+					 $(this).css('pointer-events', 'none');
+				}else if(vote_num == "" ){
+					console.log("root_this.name>0 : "+root_this.name);
+					
+				}else	{
+					$(this).attr("src", "img/votechange.jpg");
+					 $(this).css('pointer-events', 'auto');
+				}
 			}else{
 				this.style.display = 'none';
 			}
 	    })
 	    
 	})
-	
+	$('.submenu').click(function (event){
+		if(session_login == ""){
+			alert('로그인이 필요합니다.');
+			event.preventDefault();   
+		}
+	})
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	
@@ -257,37 +260,30 @@ window.onload = function() {
 	  modal.style.display = "none";
 	};
 }
-var vote_num = '<c:out value="${voting_result2.vote_num}"/>';
+//
+
 function VoteImgchange(x){
-	console.log(x.find('.voteimg'));
+
 	x.find('.voteimg').each (function() {
-		 if(vote_num == this.id){
+		 if(this.name == this.id){
 			 $(this).attr("src", "img/votecomplete.jpg");
-			 $(this).removeAttr("onclick");
-			 $(this).unbind('mouseenter mouseleave');
-		 }else if(vote_num.length == 0){
+			 $(this).css('pointer-events', 'none');
+		 }else if(this.name.length == 0){
 			 
-		 }else if(vote_num != this.id){
+		 }else if(this.name != this.id){
 			 $(this).attr("src", "img/votechange.jpg");
+			 $(this).css('pointer-events', 'auto');
 		 }
 	})
-	$(".voting").children('img').each(function(){
-			if(vote_num == this.id){
-			$(this).attr("src", "img/votecomplete.jpg");
-			$(this).removeAttr("onclick");
-			$(this).unbind('mouseenter mouseleave');
-			}else if(vote_num.length == 0){
-				
-			}else{
-				$(this).attr("src", "img/votechange.jpg");
-				$(this).removeAttr("onclick");
-				$(this).unbind('mouseenter mouseleave');
-			//	$(this).style.display = 'block';
-			}
-		})
+
 }
 $(document).ready(function(){
 	VoteImgchange($(this));
+
+	 $('.dropdown-button').dropdown({
+	      belowOrigin: true
+	    });
+	 
 });
 </script>
  <c:if test="${login.userid == boardRetrieve.userid || login.userid == null}">
@@ -295,7 +291,7 @@ $(document).ready(function(){
    $(document).ready(function(){
 	    $(".voteimg").css("display", "none");
 	});
-   </script>
+</script>
 </c:if>
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
 <script>
@@ -303,7 +299,7 @@ $(document).ready(function() {
 	
     $('.voteimg').click(function (event)
     {
-
+		console.log("num : "+ this.id);
     	var t = this;
     	var url_link;
     	if(event.target.getAttribute("src") == "img/voteimg.jpg"){
@@ -318,29 +314,48 @@ $(document).ready(function() {
 		//	dataType:"json",
 			data:{
 				v1: this.id,
-				num: $("input[name=num]").val(),
+				num: this.alt,
 				nickname: $("input[name=nickname]").val()
 			},
 			success: function(responseData, status, xhr){
-//				console.log("success", responseData, status);
-				var vote_num = responseData.split("/");
-				 $('#v1').text(vote_num[1]);
-				 $('#v2').text(vote_num[2]);
-				 $('#v3').text(vote_num[3]);
-				 $('#v4').text(vote_num[4]);
-				 $('#v5').text(vote_num[5]);
-				$('.voteimg').each (function() {
-				if(vote_num[0] == this.id){
-					$(this).attr("src", "img/votecomplete.jpg");
-					$(t).attr("src", "img/votecomplete.jpg");
-					$(t).removeAttr("onclick");
-					$(t).unbind('mouseenter mouseleave click');
-				 }else {
-					 $(this).attr("src", "img/votechange.jpg");
-					 $(this).bind('mouseenter mouseleave click');
-					 $(this).attr("onclick");
-				 }
-				})
+	//			console.log("success", responseData, status);
+	
+	//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
+					var vote_num = responseData.split("/");
+					$('input[name=num]').val(vote_num[0]);
+					 $('#v1.'+t.alt).text(vote_num[1]);
+					 $('#v2.'+t.alt).text(vote_num[2]);
+					 $('#v3.'+t.alt).text(vote_num[3]);
+					 $('#v4.'+t.alt).text(vote_num[4]);
+					 $('#v5.'+t.alt).text(vote_num[5]);
+
+					
+					$('.voteimg[alt='+t.alt+']').each (function() {
+						if(vote_num[0] == this.id){
+							$(this).attr("src", "img/votecomplete.jpg");
+							$(t).attr("src", "img/votecomplete.jpg");
+							$(t).css('pointer-events', 'none');
+				//			console.log("abctrue : "+this.id+" / "+$(this).css('pointer-events'));
+						 }else {
+							 $(this).attr("src", "img/votechange.jpg");
+							 $(this).css('pointer-events', 'auto'); 
+					//		 console.log("this : "+this.id+" / "+$(this).css('pointer-events'));
+						 }
+					})
+					$('.voteimg[name=modal]').each(function(){
+						if(vote_num[0] == this.id){
+							$(this).attr("src", "img/votecomplete.jpg");
+							$(t).attr("src", "img/votecomplete.jpg");
+							$(t).css('pointer-events', 'none');
+					//		console.log("modal: "+this.name+" / "+$(this).attr("src"));
+						 }else {
+							 $(this).attr("src", "img/votechange.jpg");
+							 $(this).css('pointer-events', 'auto'); 
+					//		 console.log("modal else: "+this.id);
+					//		 console.log("this : "+this.id+" / "+$(this).css('pointer-events'));
+						 }
+					})
+
 			},
 			error:function(error){
 				console.log(error);
@@ -355,51 +370,22 @@ $(document).ready(function() {
 <div id="myModal" class="modal" style="z-index: 999;">
   <span class="close" onclick="document.getElementsByClassName('modal').style.display='none'" style="z-index: 999">&times;</span>
   <img class="modal-content" id="img01" >
-  <div class="voting"><img src=img/voteimg.jpg class="voteimg" id="1"><img src=img/voteimg.jpg class="voteimg" id="2" style="display: none;">
-  <img src=img/voteimg.jpg class="voteimg" id="3" style="display: none;"><img src=img/voteimg.jpg class="voteimg" id="4" style="display: none;">
-  <img src=img/voteimg.jpg class="voteimg" id="5" style="display: none;">
+  <div class="voting"><img src=img/voteimg.jpg class="voteimg" name="modal" id="1"><img src=img/voteimg.jpg class="voteimg" name="modal" id="2" style="display: none;">
+  <img src=img/voteimg.jpg class="voteimg" name="modal" id="3" style="display: none;"><img src=img/voteimg.jpg class="voteimg" name="modal" id="4" style="display: none;">
+  <img src=img/voteimg.jpg class="voteimg" name="modal" id="5" style="display: none;">
   </div>
   <div id="caption"></div>
 </div>
 
-
-<div class="stuck">
-<table class="menu" bgcolor="#232128" border="0" width="100%" style="margin-left: 0px; padding-left: 0px; border-collapse:collapse;">
-<tr height="30px" bgcolor="#424242"><td></td></tr>
-<tr><th bgcolor="#424242"><img src="img/profile.png" width="40%" height="50%"></th></tr>
-<tr height="70px" bgcolor="#424242"><th><font color=white size="3px">${sessionScope.login.userid}님<br>환영합니다!</font></th></tr>
-</table>
-<table bgcolor="#424242" border="0" width="100%" style="margin-left: 0px; padding-left: 0px;">
-<tr><td align="center"><font color="white">팔로우: 0, 팔로워: 0</font></td></tr>
-</table>
-
-<div class="xnav">
-  <div class="xnav-wrapper">
-    <ul class="sf-menu">
-      <li><a href="#">MyPage</a></li>
-      <li><a href="#">favorites</a></li>
-      <li><a href="#">follows</a></li>
-      <li><a href="#">followers</a></li>
-      <li><a href="#">Today's HOT CHOICE</a></li></ul>
-      </div>
-      </div>
-</div>
 <div class="not-stuck">
-  <!-- 
-  <tr>
-    <td>${xxx.num}</td>
-    <td><a href="BoardRetrieveServlet?num=${xxx.num}">${xxx.title}</a></td>
-    <td>${xxx.author}</td>
-    <td>${xxx.writeday}</td>
-    <td>${xxx.readcnt}</td>
-  </tr> -->
-<c:forEach var="xxx" items="${boardList}">
+
+<c:forEach var="xxx" items="${boardList}" varStatus="status">
 <input type="hidden" name="nickname" value="${xxx.author}">
-<input type="hidden" name="num" value="${xxx.num}">
+<input type="hidden" name="num" value="${xxx.num}" id="${xxx.vote_num}">
 <div class="container memo" style="width: 80%">
   <div class="card">
     <div class="info">
-      <a class="username">${xxx.title}</a>${xxx.num} &nbsp;&nbsp;&nbsp;${xxx.writeday}
+      <a class="username">${xxx.title}</a> &nbsp;&nbsp;&nbsp;${xxx.writeday} <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
       <div class="option-button">
         <a class='dropdown-button' id='dropdown-button-id' data-activates='dropdown-id'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-id' class='dropdown-content'>
@@ -425,15 +411,15 @@ $(document).ready(function() {
 </c:if>
 <c:if test="${xxx.vimage1 ne null && xxx.vcontent1 eq null }">
 <tr height="150px"><th>
-<img class="myImg" src="/project/images/${xxx.vimage1}" alt="${xxx.vcontent1}" width=105 height=100 id="1"></th></tr>
+<img class="myImg" src="/project/images/${xxx.vimage1}" alt="${xxx.vcontent1}" width=105 height=100 name="${xxx.num}"  id="1"></th></tr>
 </c:if>
 <c:if test="${xxx.vimage1 ne null && xxx.vcontent1 ne null}">
-<tr><th><img class="myImg" src="/project/images/${xxx.vimage1}" alt="${xxx.vcontent1}" width=105 height=100 id="1"></th></tr>
+<tr><th><img class="myImg" src="/project/images/${xxx.vimage1}" alt="${xxx.vcontent1}" width=105 height=100 name="${xxx.num}" id="1"></th></tr>
 <tr><th><textarea class="vcontent"   readonly="readonly">${xxx.vcontent1}</textarea></th></tr>
 </c:if>
-<tr><th><img src=img/voteimg.jpg class="voteimg" id="1"></th></tr>
+<tr><th><img src=img/voteimg.jpg class="voteimg" name="${xxx.vote_num}" id="1" alt="${xxx.num}"></th></tr>
 </table>
-<div id="v1" align="center">${xxx.votecount1}</div>
+<div class="${xxx.num}" id="v1" align="center">${xxx.votecount1}</div>
 </div>
     
     
@@ -448,15 +434,15 @@ $(document).ready(function() {
 </c:if>
 </c:if>
 <c:if test="${xxx.vimage2 ne null && xxx.vcontent2 eq null }">
-<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage2}" alt="${xxx.vcontent2}" width=105 height=100 id="1"></th></tr>
+<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage2}" alt="${xxx.vcontent2}" width=105 height=100 name="${xxx.num}"  id="2"></th></tr>
 </c:if>
 <c:if test="${xxx.vimage2 ne null && xxx.vcontent2 ne null}">
-<tr><th><img class="myImg" src="/project/images/${xxx.vimage2}" alt="${xxx.vcontent2}" width=105 height=100 id="2"></th></tr>
+<tr><th><img class="myImg" src="/project/images/${xxx.vimage2}" alt="${xxx.vcontent2}" width=105 height=100 name="${xxx.num}" id="2"></th></tr>
 <tr><th><textarea class="vcontent"   readonly="readonly">${xxx.vcontent2}</textarea></th></tr>
 </c:if>
-<tr><th><img src=img/voteimg.jpg class="voteimg" id="2"></th></tr>
+<tr><th><img src=img/voteimg.jpg class="voteimg" name="${xxx.vote_num}" id="2" alt="${xxx.num}"></th></tr>
 </table>
-<div id="v2" align="center">${xxx.votecount2}</div>
+<div class="${xxx.num}" id="v2" align="center">${xxx.votecount2}</div>
 </div>
 
 <c:if test = "${xxx.vcontent3 ne null || xxx.vimage3 ne null}">
@@ -466,15 +452,15 @@ $(document).ready(function() {
 <tr height="150px"><th><textarea style="width: 7.5em; height: 7.5em; resize: none; text-align-last: center; padding: 0px; vertical-align:middle;" readonly="readonly">${xxx.vcontent3}</textarea></th></tr>
 </c:if>
 <c:if test="${xxx.vimage3 ne null && xxx.vcontent3 eq null }">
-<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage3}" alt="${xxx.vcontent3}" width=105 height=100 id="1"></th></tr>
+<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage3}" alt="${xxx.vcontent3}" width=105 height=100 name="${xxx.num}"  id="3"></th></tr>
 </c:if>
 <c:if test="${xxx.vimage3 ne null && xxx.vcontent3 ne null}">
-<tr><th><img src="/project/images/${xxx.vimage3}" class="myImg" alt="${xxx.vcontent3}" width=105 height=100 id="3"></th></tr>
+<tr><th><img src="/project/images/${xxx.vimage3}" class="myImg" alt="${xxx.vcontent3}" width=105 height=100 name="${xxx.num}"  id="3"></th></tr>
 <tr><th><textarea class="vcontent"   readonly="readonly">${xxx.vcontent3}</textarea></th></tr>
 </c:if>
-<tr><th><img src=img/voteimg.jpg class="voteimg" id="3"></th></tr>
+<tr><th><img src=img/voteimg.jpg class="voteimg" name="${xxx.vote_num}" id="3" alt="${xxx.num}"></th></tr>
 </table>
-<div id="v3" align="center">${xxx.votecount3}</div>
+<div class="${xxx.num}" id="v3" align="center">${xxx.votecount3}</div>
 </div>
 </c:if>
 
@@ -485,15 +471,15 @@ $(document).ready(function() {
 <tr height="150px"><th><textarea style="width: 7.5em; height: 7.5em; resize: none; text-align-last: center; padding: 0px; vertical-align:middle;" readonly="readonly">${xxx.vcontent4}</textarea></th></tr>
 </c:if>
 <c:if test="${xxx.vimage4 ne null && xxx.vcontent4 eq null }">
-<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage4}" alt="${xxx.vcontent4}" width=105 height=100 id="1"></th></tr>
+<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage4}" alt="${xxx.vcontent4}" width=105 height=100 name="${xxx.num}" id="4"></th></tr>
 </c:if>
 <c:if test="${xxx.vimage4 ne null && xxx.vcontent4 ne null}">
-<tr><th><img src="/project/images/${xxx.vimage4}" class="myImg" alt="${xxx.vcontent4}" width=105 height=100 id="4"></th></tr>
+<tr><th><img src="/project/images/${xxx.vimage4}" class="myImg" alt="${xxx.vcontent4}" width=105 height=100 name="${xxx.num}" id="4"></th></tr>
 <tr><th><textarea class="vcontent"   readonly="readonly">${xxx.vcontent4}</textarea></th></tr>
 </c:if>
-<tr><th><img src=img/voteimg.jpg class="voteimg" id="4"></th></tr>
+<tr><th><img src=img/voteimg.jpg class="voteimg" name="${xxx.vote_num}" id="4" alt="${xxx.num}"></th></tr>
 </table>
-<div id="v4" align="center">${xxx.votecount4}</div>
+<div class="${xxx.num}" id="v4" align="center">${xxx.votecount4}</div>
 </div>
 </c:if>
 
@@ -504,15 +490,15 @@ $(document).ready(function() {
 <tr height="150px"><th><textarea style="width: 7.5em; height: 7.5em; resize: none; text-align-last: center; padding: 0px; vertical-align:middle;" readonly="readonly">${xxx.vcontent5}</textarea></th></tr>
 </c:if>
 <c:if test="${xxx.vimage5 ne null && xxx.vcontent5 eq null }">
-<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage5}" alt="${xxx.vcontent5}" width=105 height=100 id="1"></th></tr>
+<tr height="150px"><th><img class="myImg" src="/project/images/${xxx.vimage5}" alt="${xxx.vcontent5}" width=105 height=100 name="${xxx.num}" id="5"></th></tr>
 </c:if>
 <c:if test="${xxx.vimage5 ne null && xxx.vcontent5 ne null}">
-<tr><th><img src="/project/images/${xxx.vimage5}" class="myImg" alt="${xxx.vcontent5}" width=105 height=100 id="5"></th></tr>
+<tr><th><img src="/project/images/${xxx.vimage5}" class="myImg" alt="${xxx.vcontent5}" width=105 height=100 name="${xxx.num}" id="5"></th></tr>
 <tr><th><textarea class="vcontent"   readonly="readonly">${xxx.vcontent5}</textarea></th></tr>
 </c:if>
-<tr><th><img src=img/voteimg.jpg class="voteimg" id="5"></th></tr>
+<tr><th><img src=img/voteimg.jpg class="voteimg" name="${xxx.vote_num}" id="5" alt="${xxx.num}"></th></tr>
 </table>
-<div id="v5" align="center">${xxx.votecount5}</div>
+<div class="${xxx.num}" id="v5" align="center">${xxx.votecount5}</div>
 </div>
 </c:if>
 

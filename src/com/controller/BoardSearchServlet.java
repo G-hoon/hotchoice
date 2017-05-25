@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.entity.BoardDTO;
+import com.entity.ListDTO;
+import com.entity.VoteDTO;
 import com.service.BoardService;
 
 /**
@@ -26,8 +28,19 @@ public class BoardSearchServlet extends HttpServlet {
 		map.put("searchName", searchName);
 		map.put("searchValue", searchValue);
 		BoardService service = new BoardService();
-		List<BoardDTO> list = service.boardSearch(map);
+		List<ListDTO> lto = service.boardSearch(map);
+		List<VoteDTO> vto = service.voteRetrieve2();
 		
+		ArrayList<ListDTO> list = new  ArrayList<>();
+		for(int index=0;index<lto.size();++index){
+			list.add(new ListDTO(lto.get(index).getNum(), lto.get(index).getAuthor(), lto.get(index).getTitle(), 
+					lto.get(index).getContent(), lto.get(index).getWriteday(), lto.get(index).getReadcnt(), 
+					lto.get(index).getUserid(), vto.get(index).getVcontent1(), vto.get(index).getVcontent2(), 
+					vto.get(index).getVcontent3(), vto.get(index).getVcontent4(), vto.get(index).getVcontent5(), 
+					vto.get(index).getVimage1(), vto.get(index).getVimage2(), vto.get(index).getVimage3(), 
+					vto.get(index).getVimage4(), vto.get(index).getVimage5(),
+					null,null,null,null,null, null));
+		}
 		request.setAttribute("boardList", list);
 		
 		RequestDispatcher dis = request.getRequestDispatcher("list.jsp");

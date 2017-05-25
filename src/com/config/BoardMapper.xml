@@ -3,17 +3,23 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.BoardMapper">
+<select id="List_result2" resultType="ListDTO"  parameterType="string">
+	select distinct myboard.num, myboard.title, myboard.author, myboard.userid, myboard.content,
+	to_char(writeday,'YYYY/MM/dd') writeday, 
+	(select count(*) from vote_record where vote_num=1 and num=myboard.num) as votecount1, 
+	(select count(*) from vote_record where vote_num=2 and num=myboard.num) as votecount2, 
+	(select count(*) from vote_record where vote_num=3 and num=myboard.num) as votecount3,
+	(select count(*) from vote_record where vote_num=4 and num=myboard.num) as votecount4, 
+	(select count(*) from vote_record where vote_num=5 and num=myboard.num) as votecount5,
+	vote_record.vote_num
+	 from myboard left outer join VOTE_RECORD on vote_record.num = myboard.num and 
+	 vote_record.nickname = #{nickname} order by num desc
+
+</select>
 
 <select id="List_result" resultType="ListDTO">
-select distinct myboard.num, myboard.author, myboard.title, myboard.content,
-myboard.writeday, myboard.userid, 
-(select count(*) from vote_record where vote_num=1 and num=myboard.num) as votecount1, 
-(select count(*) from vote_record where vote_num=2 and num=myboard.num) as votecount2, 
-(select count(*) from vote_record where vote_num=3 and num=myboard.num) as votecount3,
-(select count(*) from vote_record where vote_num=4 and num=myboard.num) as votecount4, 
-(select count(*) from vote_record where vote_num=5 and num=myboard.num) as votecount5
- from myboard full outer join vote_record
-on vote_record.num = myboard.num order by num desc
+select distinct num, author, title, content, to_char(writeday,'YYYY/MM/dd') writeday , userid
+ from myboard order by num desc
 </select>
 
    <update id="Voting_Update" parameterType="hashmap">
@@ -27,6 +33,7 @@ on vote_record.num = myboard.num order by num desc
      where num = #{num}
    </select>
    
+   <!-- voting result // a: num, b: vote_num, c: nickname -->
    <!-- vote result2 : 해당 닉네임이 투표를 어떤 것을 했는지 확인하기 위함 -->
    <select id="voting_result2" resultType="RecordDTO" parameterType="hashmap">
      select vote_num from vote_record
@@ -57,7 +64,7 @@ on vote_record.num = myboard.num order by num desc
 	<select id="voteRetrieve" resultType="VoteDTO" parameterType="int">
      select num,userid,vcontent1,vcontent2,vcontent3,vcontent4,vcontent5,vimage1,vimage2,vimage3,vimage4,vimage5
      from myvote
-     where num = #{num}
+     where num = #{num} order by num desc
    </select>
 
  <insert id="voteWrite" parameterType="arraylist">
@@ -75,15 +82,17 @@ on vote_record.num = myboard.num order by num desc
       select count(*)
        from myboard
    </select>
- 
-   <select id="" 
-      parameterType="hashmap" resultType="BoardDTO">
-     select num,author,title,
-             to_char(writeday,'YYYY/MM/dd') writeday 
-             , readcnt,userid
-     from myboard
+
+   <select id="boardSearch" parameterType="hashmap" resultType="ListDTO">
+select distinct num, author, title, content, to_char(writeday,'YYYY/MM/dd') writeday, userid, 
+(select count(*) from vote_record where vote_num=1 and num=myboard.num) as votecount1, 
+(select count(*) from vote_record where vote_num=2 and num=myboard.num) as votecount2, 
+(select count(*) from vote_record where vote_num=3 and num=myboard.num) as votecount3,
+(select count(*) from vote_record where vote_num=4 and num=myboard.num) as votecount4, 
+(select count(*) from vote_record where vote_num=5 and num=myboard.num) as votecount5
+ from myboard
      <if test="searchName == 'title'">
-       where title LIKE  '%'||#{searchValue}||'%'
+      where title LIKE  '%'||#{searchValue}||'%'
      </if>
      <if test="searchName == 'author'">
        where author LIKE '%'||#{searchValue}||'%'
@@ -125,7 +134,7 @@ on vote_record.num = myboard.num order by num desc
    </insert>
       <select id="voteRetrieve2" resultType="VoteDTO">
      select num,userid,vcontent1,vcontent2,vcontent3,vcontent4,vcontent5,vimage1,vimage2,vimage3,vimage4,vimage5
-     from myvote
+     from myvote order by num desc
      
    </select>
    <select id="boardList" resultType="BoardDTO">

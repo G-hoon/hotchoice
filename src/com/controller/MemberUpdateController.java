@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,43 +9,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.entity.MemberDTO;
 import com.exception.CommonException;
+import com.service.BoardService;
 import com.service.MemberService;
 
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/MemberAddController")
-public class MemberAddController extends HttpServlet {
+@WebServlet("/MemberUpdateController")
+public class MemberUpdateController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");//나중에 필터로
-		String userid = request.getParameter("userid");
+		 HttpSession session = request.getSession();
+		 MemberDTO mto = (MemberDTO)session.getAttribute("login");
 		String passwd = request.getParameter("passwd");
 		String nickname = request.getParameter("nickname");
-		String year = request.getParameter("year");
-		String month = request.getParameter("month");
-		String day = request.getParameter("day");
-		String gender = request.getParameter("gender");
-		String month_zero = "0";
-		String day_zero="0";
-		if(Integer.parseInt(month) > 9){
-			month_zero = null;
-		}
-		if(Integer.parseInt(day) > 9){
-			day_zero = null;
-		}
-		String dates = year+month_zero+month+day_zero+day;
-		System.out.println("dates: "+dates);
-		MemberDTO dto = new MemberDTO(userid, passwd, nickname, dates, gender);
+		MemberDTO dto = new MemberDTO(mto.getUserid(), passwd, nickname, mto.getDates(), mto.getGender());
         MemberService service = new MemberService();
+        HashMap<String, String> map= new HashMap<>();
+		map.put("passwd", passwd);
+		map.put("nickname", nickname);
+		map.put("userid", mto.getUserid());
+		
         String target = "";
         try {
-			service.addMember(dto);
+			service.upadteMember(map);
 			target = "Home"; //HomeController
-			request.setAttribute("success", "회원가입 성공");
 		} catch (CommonException e) {
 			target = "error.jsp";
 			request.setAttribute("message", e.getMessage());

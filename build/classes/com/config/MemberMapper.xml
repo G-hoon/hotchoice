@@ -4,6 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.MemberMapper">
  
+    <update id="updateMember" parameterType="hashmap">
+      update member
+      set passwd=#{passwd}, nickname=#{nickname}
+      where userid = #{userid}
+   </update>
+ 
  <select id="myPage" parameterType="string" 
   resultType="MemberDTO">
    select *
