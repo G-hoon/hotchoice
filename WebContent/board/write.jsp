@@ -11,30 +11,11 @@ textarea
 {
     resize: none;
 }
-html {
-font-family: GillSans, Calibri, Trebuchet, sans-serif;
-position: relative;
-  overflow-x: hidden;
-  -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -ms-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  transition: all .2s ease;
-}
-body {
- 
-  background-color: #ECEFF1;
-  margin: 0 !important;
-  padding: 0 !important;
-}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
 <script src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 <script src="js/fileupload.js"></script>
 <script type="text/javascript">
-
-$(":file").filestyle();
 
 $(document).ready(function(){
 	$(":button").on("click", function(event){
@@ -133,12 +114,15 @@ $(document).ready(function(){
 
 </script>
 <link rel="stylesheet" type="text/css" href="css/fileupload.css" />
+<div class="not-stuck">
+<!-- 글쓰기 form 시작 -->
+<div class="writestyle" style="margin-top: 60px; margin-left: 60px;">
 <form action="BoardWriteServlet" method="post" enctype="multipart/form-data" id="voting">
  제목<input type="text" name="title"><br>
  작성자<span><b>${sessionScope.login.nickname}</b></span><input type="hidden" name="author" value="${sessionScope.login.nickname}"><br>
  선택 <input type="button" name="b2" value="2">  <input type="button" name="b3" value="3">  
  <input type="button" name="b4" value="4"> <input type="button" name="b5" value="5"> <input type="button" value="O/X"><br>
- 내용<br><textarea rows="3" cols="30" name="content"></textarea>
+ 내용<br><textarea rows="5" cols="60" name="content"></textarea>
  <br>
  <div style="display:block; float: left; overflow: hidden">
  <div id="c1" style="border: 1px ; float: left; width: 110px; padding:10px;">
@@ -180,6 +164,8 @@ $(document).ready(function(){
  <input type="submit" value="글작성">
 </div>
 </form>
+</div>
+</div>
 
 
 

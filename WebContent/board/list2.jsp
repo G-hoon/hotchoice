@@ -15,24 +15,29 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
  
-<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"  media="screen,projection"/ />
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"  media="screen,projection"/>
 <!-- 
 <link rel="stylesheet" type="text/css" href="../css/card.css" /> -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <script type="text/javascript">
 $(document).ready(function() {
+	console.log("1");
+	
 	   $('.dropdown-button').dropdown({
 	      belowOrigin: true
-	    }
-	  );
+	    });
+
+	      console.log($('.card').css('z-index'));
+	      console.log($('.dropdown-button').css('z-index'));
+
+	      console.log($('.dropdown-content').css('z-index'));
 	})
 </script>
 <style>
@@ -124,6 +129,11 @@ body {
 
 </style>
 <body>
+  <div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+  </div>
 <div>Header</div>
 <nav>
     <div class="nav-wrapper red lighten-1 ">
@@ -145,13 +155,14 @@ body {
         </div>
     </div>
 </nav>
+
 <div class="container memo">
   <div class="card">
     <div class="info">
       <a class="username">Writer</a> wrote a log · 1 seconds ago · Edited 1 second ago
       <div class="option-button">
-        <a class='dropdown-button' id='dropdown-button-id' data-activates='dropdown-id'><i class="material-icons icon-button">more_vert</i></a>
 
+        <a class='dropdown-button' id='dropdown-button-id' data-activates='dropdown-id'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-id' class='dropdown-content'>
           <li><a>Edit</a></li>
           <li><a>Remove</a></li>

@@ -39,7 +39,8 @@ public class BoardSearchServlet extends HttpServlet {
 					vto.get(index).getVcontent3(), vto.get(index).getVcontent4(), vto.get(index).getVcontent5(), 
 					vto.get(index).getVimage1(), vto.get(index).getVimage2(), vto.get(index).getVimage3(), 
 					vto.get(index).getVimage4(), vto.get(index).getVimage5(),
-					null,null,null,null,null, null));
+					lto.get(index).getVotecount1(), lto.get(index).getVotecount2(),lto.get(index).getVotecount3(), 
+					lto.get(index).getVotecount4(), lto.get(index).getVotecount5(), lto.get(index).getVote_num()));
 		}
 		request.setAttribute("boardList", list);
 		

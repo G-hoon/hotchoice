@@ -14,12 +14,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/card.css" />
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/modal.css" />
+<link rel="stylesheet" type="text/css" href="css/write_button.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
 <style type="text/css">
 
-
-
+/* */
 textarea
 {
     resize: none;
@@ -36,8 +38,6 @@ textarea
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
-
-
 }
 
 .voteimg:hover {
@@ -52,206 +52,65 @@ textarea
    
 }
 
-.myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-
-}
-
-/* Modal Content (image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    width: auto;
-    max-width: 800px;
-	max-height: calc(100vh - 155px);
-}
-
-/* Caption of Modal Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-}
-div.voting img {
-    margin: auto;
-    display: block;
-    padding: 10px 0;
-    transition: 0.3s;
-    
-}
-/* Add Animation */
-.modal-content, .voteimg, #caption {    
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
-}
-.memo .info {
-  font-size: 18px;
-  padding: 20px 20px 0px 20px;
-  color: #90A4AE;
-}
-
-.memo .info .username {
-  color: #263238;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.memo .card-content {
-  word-wrap: break-word;
-}
-
-.memo .option-button {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-
-.icon-button {
-  color: #9e9e9e;
-  cursor: pointer;
-}
-
-.icon-button:hover {
-  color: #C5C5C5;
-}
-
-.icon-button:hover {
-  color: #C5C5C5;
-}
-
-.icon-button:active {
-  color: #ff9800;
-}
-
-.memo .card-content {
-  font-size: 18px;
-}
-
-.memo .footer {
-  border-top: 1px solid #ECECEC;
-  height: 45px;
-}
-
-.star {
-  position: relative;
-  left: 15px;
-  top: 11px;
-}
-
-.star-count {
-  position: relative;
-  left: 20px;
-  top: 4px;
-  font-size: 13px;
-  font-weight: bold;
-  color: #777;
-}
-.wrapper {
-    margin-top: 20px;
-}
-
+ul{
+   list-style:none;
+    padding-left:0px;
+   }
 </style>
 <script>
-var session_login = '${sessionScope.login}';
+
+var session_login = '${sessionScope.login.nickname}';
 window.onload = function() {
 	var modal = document.getElementById('myModal');
 	var modalImg = document.getElementById("img01");
 	var captionText = document.getElementById("caption");
-	console.log($("input[value=223]").attr("id"));
-	
-	
 	$(".myImg").click(function(){
 	    modal.style.display = "block";
 	    modalImg.src = this.src;
 	    captionText.innerHTML = this.alt;
 	    var root_this = this;
 	    var board_num = this.name;
-	    var vote_num = $('input[value='+board_num+']').attr("id");
-	 //   console.log("vnum: "+vote_num+" / "+board_num)
+	    var vote_num = $('input[value='+board_num+']').attr("id"); // 이렇게 하는 이유:
+	    	//그냥 vote_num을 불러올 경우, list의 최상단 vote_num을 불러오게됨. 따라서 해당 게시판 번호(num)의 vote_num 을 불러오기위해 
+	    	//두 변수를 연계함.
+	    var board_author = $("input[name=nickname]#"+board_num).val();
 	    //modal창 투표버튼 활성, 비활성화
 	    $(".voting").children('img').each(function(){
-			if(this.id == root_this.id && session_login != ""){
+			if(this.id == root_this.id && session_login != "" && session_login != board_author){ 
+				//모달 창의 투표버튼의 id와 myImg (미리보기 이미지) id 값 비교해서 해당 값의 투표 버튼만 활성화,
 				this.style.display = 'block';
 				this.alt = board_num;
-				console.log("vote_num : "+vote_num);
-				if(vote_num == this.id){
+				var modal_vote = $(this);
+				if(vote_num == this.id){ //해당 유저가 투표한 번호에 해당하는 모달창 투표버튼 이미지 투표완료로 바꾸기
 					 $(this).attr("src", "img/votecomplete.jpg");
 					 $(this).css('pointer-events', 'none');
 				}else if(vote_num == "" ){
-					console.log("root_this.name>0 : "+root_this.name);
-					
+					$(this).attr("src", "img/voteimg.jpg");
+					 $(this).css('pointer-events', 'auto');
 				}else	{
 					$(this).attr("src", "img/votechange.jpg");
-					 $(this).css('pointer-events', 'auto');
+				 	$(this).css('pointer-events', 'auto');
 				}
-			}else{
+			}else{ //나머지 투표하기 버튼 비활성화
 				this.style.display = 'none';
-			}
+			
+			}  
 	    })
 	    
 	})
-	$('.submenu').click(function (event){
-		if(session_login == ""){
-			alert('로그인이 필요합니다.');
-			event.preventDefault();   
-		}
-	})
+	console.log(session_login);
+	if(session_login == "" ){
+		$(".voteimg").css("display", "none");
+		   $(".fixed-action-btn").css("display", "none");
+		   $("#v1, #v2, #v3, #v4, #v5").css("display", "none"); //로그인을 하지 않았을 때, 투표결과 보이지 않기.
+
+		   console.log($(".voteimg").css("display"));
+		   $('.submenu').click(function (event){
+			   alert('로그인이 필요합니다.');
+				event.preventDefault();   
+		   })
+	}
+
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	
@@ -274,25 +133,29 @@ function VoteImgchange(x){
 			 $(this).attr("src", "img/votechange.jpg");
 			 $(this).css('pointer-events', 'auto');
 		 }
+		 
+		
 	})
-
 }
-$(document).ready(function(){
-	VoteImgchange($(this));
 
-	 $('.dropdown-button').dropdown({
-	      belowOrigin: true
+
+</script>
+<!-- 로그인: 투표화면 보여주기, 글쓰기 버튼 보여주기 -->
+
+<script>
+$(document).ready(function(){
+		VoteImgchange($(this));
+	   $('.dropdown-button').dropdown({
+		      belowOrigin: true
 	    });
-	 
+	
+	   $("input[name=nickname]").each(function(){
+			if(session_login == $(this).val()){
+				$('img[alt='+this.id+']'+'.voteimg').css("display", "none"); //this.id는 해당 list의 num값
+			}
+		})
 });
 </script>
- <c:if test="${login.userid == boardRetrieve.userid || login.userid == null}">
-   <script>
-   $(document).ready(function(){
-	    $(".voteimg").css("display", "none");
-	});
-</script>
-</c:if>
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
 <script>
 $(document).ready(function() {
@@ -320,26 +183,24 @@ $(document).ready(function() {
 			success: function(responseData, status, xhr){
 	//			console.log("success", responseData, status);
 	
-	//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
+
 					var vote_num = responseData.split("/");
-					$('input[name=num]').val(vote_num[0]);
+					$('input[name=num]').attr("id",vote_num[0]);
 					 $('#v1.'+t.alt).text(vote_num[1]);
 					 $('#v2.'+t.alt).text(vote_num[2]);
 					 $('#v3.'+t.alt).text(vote_num[3]);
 					 $('#v4.'+t.alt).text(vote_num[4]);
 					 $('#v5.'+t.alt).text(vote_num[5]);
 
-					
+						//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
 					$('.voteimg[alt='+t.alt+']').each (function() {
 						if(vote_num[0] == this.id){
 							$(this).attr("src", "img/votecomplete.jpg");
 							$(t).attr("src", "img/votecomplete.jpg");
 							$(t).css('pointer-events', 'none');
-				//			console.log("abctrue : "+this.id+" / "+$(this).css('pointer-events'));
 						 }else {
 							 $(this).attr("src", "img/votechange.jpg");
 							 $(this).css('pointer-events', 'auto'); 
-					//		 console.log("this : "+this.id+" / "+$(this).css('pointer-events'));
 						 }
 					})
 					$('.voteimg[name=modal]').each(function(){
@@ -347,12 +208,9 @@ $(document).ready(function() {
 							$(this).attr("src", "img/votecomplete.jpg");
 							$(t).attr("src", "img/votecomplete.jpg");
 							$(t).css('pointer-events', 'none');
-					//		console.log("modal: "+this.name+" / "+$(this).attr("src"));
 						 }else {
 							 $(this).attr("src", "img/votechange.jpg");
 							 $(this).css('pointer-events', 'auto'); 
-					//		 console.log("modal else: "+this.id);
-					//		 console.log("this : "+this.id+" / "+$(this).css('pointer-events'));
 						 }
 					})
 
@@ -364,6 +222,7 @@ $(document).ready(function() {
     });
 });
 </script>
+
 </head>
 <body>
 <!--  z-index: 3; position: absolute; -->
@@ -376,31 +235,42 @@ $(document).ready(function() {
   </div>
   <div id="caption"></div>
 </div>
-
+<!-- 컨텐츠 부분(고정되지 않음) -->
 <div class="not-stuck">
+<!-- 글쓰기 버튼 -->
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large red" href="BoardWriteUIServlet">
+    <i class="large material-icons">mode_edit</i>
+  </a>
+</div>
 
+<!-- 카드 리스트 -->
 <c:forEach var="xxx" items="${boardList}" varStatus="status">
-<input type="hidden" name="nickname" value="${xxx.author}">
+<input type="hidden" name="nickname" value="${xxx.author}" id="${xxx.num}">
 <input type="hidden" name="num" value="${xxx.num}" id="${xxx.vote_num}">
 <div class="container memo" style="width: 80%">
   <div class="card">
     <div class="info">
-      <a class="username">${xxx.title}</a> &nbsp;&nbsp;&nbsp;${xxx.writeday} <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
-      <div class="option-button">
-        <a class='dropdown-button' id='dropdown-button-id' data-activates='dropdown-id'><i class="material-icons icon-button">more_vert</i></a>
-        <ul id='dropdown-id' class='dropdown-content'>
-          <li><a>Edit</a></li>
-          <li><a>Remove</a></li>
+      <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;<br><font size="2px">${xxx.writeday}</font>
+      <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
+	<c:if test="${xxx.author == login.nickname}">
+	<div class="option-button">
+        <a class='dropdown-button' id='dropdown-button-${xxx.num}' data-activates='dropdown-${xxx.num}'><i class="material-icons icon-button">more_vert</i></a>
+        <ul id='dropdown-${xxx.num}' class='dropdown-content'>
+          <li><a class="edit">Edit</a></li>
+          <li><a class="remove">Remove</a></li>
         </ul>
       </div>
-    </div>
+      </c:if>
+    </div><!-- end option button -->
     <div class="card-content" style="overflow: hidden;">
     <table>
+    <tr><td colspan="5"><b>${xxx.title}</b></td></tr>
     <tr><td colspan="5"><a href="BoardRetrieveServlet?num=${xxx.num}"  style="text-decoration:none; color: inherit;">${xxx.content}</a><br></td></tr>
     </table>
   
-    <div id="c1" style="border: 1px; float:left; width: 110px; padding:10px;">
-         <table bordercolor=black id="tbl">
+<div id="c1" style="border: 1px; float:left; width: 110px; padding:10px;">
+<table bordercolor=black id="tbl">
 <c:if test="${xxx.vimage1 eq null && xxx.vcontent1 ne null }">
 <c:if test="${xxx.vcontent1 == 'o'}">
 <tr height="150px"><th><img src="img/o.jpg" alt="o" width=90 height=110></th></tr>
@@ -509,7 +379,8 @@ $(document).ready(function() {
   </div>
 </div>
 </c:forEach>
+<!-- 카드 리스트 끝 -->
 </div>
-
+<!-- 컨텐츠 부분 끝 -->
 </body>
 </html>

@@ -29,13 +29,11 @@ public class BoardUpdateServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			String num = request.getParameter("num");
 			String title = request.getParameter("title");
-			String author = request.getParameter("author");
 			String content = request.getParameter("content");
 			
 			HashMap<String, String> map= new HashMap<>();
 			map.put("a", num);
 			map.put("b", title);
-			map.put("c", author);
 			map.put("d", content);
 			
 			BoardService service = new BoardService();

@@ -104,7 +104,7 @@ select distinct num, author, title, content, to_char(writeday,'YYYY/MM/dd') writ
 
    <update id="boardUpdate" parameterType="hashmap">
       update myboard
-      set title=#{b}, author=#{c} , content=#{d}
+      set title=#{b}, content=#{d}
       where num = #{a}
    </update>
 

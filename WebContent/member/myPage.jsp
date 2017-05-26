@@ -113,7 +113,8 @@ function openMenu(evt, menuName) {
 </div>
 <div id="memberinfo" class="tabcontent">
   <h3>개인정보 변경하기</h3>
-  <p>현재 개인정보 변경은 비밀번호와 닉네임만 가능합니다.</p>
+  <p>현재 개인정보 변경은 비밀번호와 닉네임만 가능합니다.<br>
+회원정보는 로그아웃 이후, 다시 로그인 하면 적용됩니다.</p>
   <form action="MemberUpdateController" method="get">
   <div class="myinfo" style="width: 480px; background-color: white; background: rgba(255, 255, 255, 0.5); font-size: 17px;">
   <table width="100%">
@@ -125,7 +126,7 @@ function openMenu(evt, menuName) {
 	
 	<tr><td align="center" width="30%">성별</td><td>남<input type="radio" name="gender" id="m" disabled>&nbsp;&nbsp;
 	여<input type="radio"  name="gender" id="w" disabled></td></tr>  
-	<tr><td align="center" colspan="2">  <input type="submit" value="회원가입" onclick="success()">&nbsp;&nbsp;
+	<tr><td align="center" colspan="2">  <input type="submit" value="정보수정" onclick="success()">&nbsp;&nbsp;
     <input type="button" value="취소" onclick="reset_info()"> </td></tr>
   </table>
 

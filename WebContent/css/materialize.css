@@ -2368,7 +2368,7 @@ samp {
 button,
 input,
 optgroup,
-select,
+select/*,
 textarea {
   color: inherit;
   /* 1 */
@@ -2507,6 +2507,7 @@ legend {
 /**
  * Remove default vertical scrollbar in IE 8/9/10/11.
  */
+ /*
 textarea {
   overflow: auto;
 }
@@ -2523,7 +2524,7 @@ optgroup {
    ========================================================================== */
 /**
  * Remove most spacing between table cells.
- */
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -2883,7 +2884,7 @@ ul.staggered-list li {
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(51, 51, 51, 0.08);
 }
-
+/*
 table, th, td {
   border: none;
 }
@@ -2938,6 +2939,7 @@ td, th {
     display: block;
     position: relative;
     /* sort out borders */
+  /*
   }
   table.responsive-table td:empty:before {
     content: '\00a0';
@@ -3344,7 +3346,7 @@ nav ul a span.badge {
      -moz-font-feature-settings: 'liga';
           font-feature-settings: 'liga';
 }
-
+/*
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -3367,7 +3369,7 @@ nav ul a span.badge {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 }
-
+*/
 .section {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -4224,7 +4226,7 @@ nav .nav-title {
   font-size: 32px;
   padding: 28px 0;
 }
-
+/*
 nav ul {
   margin: 0;
 }
@@ -4234,7 +4236,7 @@ nav ul li {
   float: left;
   padding: 0;
 }
-
+*/
 nav ul li.active {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -5854,7 +5856,7 @@ label {
   color: #d1d1d1;
 }
 
-/* Text inputs */
+/* Text inputs 
 input:not([type]),
 input[type=text],
 input[type=password],
@@ -6248,13 +6250,13 @@ textarea.materialize-textarea + label:after {
   transition: .3s color;
 }
 
-/* Textarea */
+/* Textarea 
 textarea {
   width: 100%;
   height: 3rem;
   background-color: transparent;
 }
-
+*/
 textarea.materialize-textarea {
   overflow-y: hidden;
   /* prevents scroll bar flash */
@@ -8415,7 +8417,7 @@ input[type=range]:focus::-ms-fill-upper {
   margin-top: .75em;
   margin-bottom: .5em;
 }
-
+/*
 .picker__table th, .picker__table td {
   text-align: center;
 }

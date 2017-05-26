@@ -8,7 +8,6 @@
 </head>
 <body>
 <jsp:include page="include/top.jsp" flush="true" />
-<hr>
 <jsp:include page="board/write.jsp" flush="true" />
 </body>
 </html>

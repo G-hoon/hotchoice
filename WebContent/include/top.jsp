@@ -128,6 +128,9 @@ background-color: transparent;
 	height: 90px;
 }
 </style>
+<script type="text/javascript">
+
+</script>
 <form action="BoardSearchServlet" method="get">
 <table width="100%" bgcolor="#ef5350" height="55px" style="margin-top: auto 0; table-layout: fixed; position:fixed; z-index: 3;"> 
 <tr><td style="margin-left: 5px"><font size="6" color="white"><a href="BoardListServlet" style="text-decoration:none; color: inherit;">&nbsp;&nbsp;HOT CHOICE</a></font></td>
@@ -176,7 +179,7 @@ background-color: transparent;
   <div class="xnav-wrapper">
     <ul class="sf-menu">
 
-      <li><a href="MyPageController" class="submenu">MyPage</a></li>
+      <li><a href="MyPageController" class="submenu" id="abc">MyPage</a></li>
       <li><a href="#" class="submenu">favorites</a></li>
       <li><a href="#" class="submenu">follows</a></li>
       <li><a href="#" class="submenu">followers</a></li>
