@@ -127,6 +127,12 @@ background-color: transparent;
 .blank1{
 	height: 90px;
 }
+img.picture {
+  max-width:130px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
 </style>
 <script type="text/javascript">
 
@@ -159,8 +165,8 @@ background-color: transparent;
 <div class="stuck">
 <c:if test="${sessionScope.login != null }">
 <table class="menu" bgcolor="#232128" border="0" width="100%" style="margin-left: 0px; padding-left: 0px; border-collapse:collapse;">
-<tr height="30px" bgcolor="#424242"><td></td></tr>
-<tr><th bgcolor="#424242"><img src="img/profile.png" width="40%" height="50%"></th></tr>
+<tr height="50px" bgcolor="#424242"><td></td></tr>
+<tr><th bgcolor="#424242"><img src="img/profile.png" class="picture"></th></tr>
 <tr height="70px" bgcolor="#424242"><th><font color=white size="3px">${sessionScope.login.nickname}님<br>환영합니다!</font></th></tr>
 </table>
 <table bgcolor="#424242" border="0" width="100%" style="margin-left: 0px; padding-left: 0px;">

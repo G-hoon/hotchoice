@@ -58,6 +58,7 @@ div.tab button.active {
 td{
 	padding: 7px;
 }
+
 </style>
 <script>
 
@@ -100,7 +101,6 @@ function openMenu(evt, menuName) {
     evt.currentTarget.className += " active";
     if(menuName == 'mylist'){
     	$(location).attr('href',"http://localhost:8090/project/BoardSearchServlet?searchName=author&searchValue="+nickname);
-
     }
 }
 
@@ -118,6 +118,8 @@ function openMenu(evt, menuName) {
   <form action="MemberUpdateController" method="get">
   <div class="myinfo" style="width: 480px; background-color: white; background: rgba(255, 255, 255, 0.5); font-size: 17px;">
   <table width="100%">
+  <tr><td height="10px"></td></tr>
+  <tr><td colspan="3" align="center"><img src="img/profile.png" class="picture"><br><br><input type="file" name="picture" style="width: 75px;"><br><b>프로필 사진 변경하기</b></td></tr>
 	<tr><td align="center" width="30%">아이디</td><td><input type="text" readonly="readonly" style="background-color :#d1d1d1;" value="${myPage.userid}"></td></tr>  
 	<tr><td align="center" width="30%">비밀번호</td><td><input type="password"  name="passwd1" value="${myPage.passwd}" onkeyup="passleng()" /></td><td width="33%"><span id="result2"></span></td></tr>  
 	<tr><td align="center" width="30%">비밀번호 확인</td><td><input type="password" name="passwd" value="${myPage.passwd}" onkeyup="passConfirm()" /></td><td width="33%"><span id="result3"></span></td></tr>  
@@ -126,7 +128,7 @@ function openMenu(evt, menuName) {
 	
 	<tr><td align="center" width="30%">성별</td><td>남<input type="radio" name="gender" id="m" disabled>&nbsp;&nbsp;
 	여<input type="radio"  name="gender" id="w" disabled></td></tr>  
-	<tr><td align="center" colspan="2">  <input type="submit" value="정보수정" onclick="success()">&nbsp;&nbsp;
+	<tr><td align="center" colspan="3">  <input type="submit" value="정보수정" onclick="success()">&nbsp;&nbsp;
     <input type="button" value="취소" onclick="reset_info()"> </td></tr>
   </table>
 

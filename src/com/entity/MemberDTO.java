@@ -6,17 +6,30 @@ public class MemberDTO {
 	private String nickname;
 	private String dates;
 	private String gender;
+	private String picture;
+	
 	public MemberDTO(){
 		super();
 	}
-	public MemberDTO(String userid, String passwd, String nickname, String dates, String gender) {
+
+	public MemberDTO(String userid, String passwd, String nickname, String dates, String gender, String picture) {
 		super();
 		this.userid = userid;
 		this.passwd = passwd;
 		this.nickname = nickname;
 		this.dates = dates;
 		this.gender = gender;
+		this.picture = picture;
 	}
+	
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public String getUserid() {
 		return userid;
 	}

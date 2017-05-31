@@ -33,9 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
   <insert id="addMember" parameterType="MemberDTO">
     insert into
-  member(userid,passwd,nickname,dates,gender)
+  member(userid,passwd,nickname,dates,gender,picture)
    values( #{userid},#{passwd},#{nickname},#{dates}
-      ,#{gender})
+      ,#{gender},#{picture})
   </insert>
    
    

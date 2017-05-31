@@ -28,6 +28,7 @@ public class MemberAddController extends HttpServlet {
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String gender = request.getParameter("gender");
+		String picture = request.getParameter("picture");
 		String month_zero = "0";
 		String day_zero="0";
 		if(Integer.parseInt(month) > 9){
@@ -38,7 +39,7 @@ public class MemberAddController extends HttpServlet {
 		}
 		String dates = year+month_zero+month+day_zero+day;
 		System.out.println("dates: "+dates);
-		MemberDTO dto = new MemberDTO(userid, passwd, nickname.trim(), dates, gender);
+		MemberDTO dto = new MemberDTO(userid, passwd, nickname.trim(), dates, gender, picture);
         MemberService service = new MemberService();
         String target = "";
         try {

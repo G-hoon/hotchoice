@@ -28,8 +28,7 @@ public class MemberUpdateController extends HttpServlet {
 		 MemberDTO mto = (MemberDTO)session.getAttribute("login");
 		String passwd = request.getParameter("passwd");
 		String nickname = request.getParameter("nickname");
-		MemberDTO dto = new MemberDTO(mto.getUserid(), passwd, nickname, mto.getDates(), mto.getGender());
-        MemberService service = new MemberService();
+	    MemberService service = new MemberService();
         HashMap<String, String> map= new HashMap<>();
 		map.put("passwd", passwd);
 		map.put("nickname", nickname);

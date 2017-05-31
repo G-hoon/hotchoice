@@ -98,7 +98,6 @@ window.onload = function() {
 	    })
 	    
 	})
-	console.log(session_login);
 	if(session_login == "" ){
 		$(".voteimg").css("display", "none");
 		   $(".fixed-action-btn").css("display", "none");
@@ -133,12 +132,8 @@ function VoteImgchange(x){
 			 $(this).attr("src", "img/votechange.jpg");
 			 $(this).css('pointer-events', 'auto');
 		 }
-		 
-		
 	})
 }
-
-
 </script>
 <!-- 로그인: 투표화면 보여주기, 글쓰기 버튼 보여주기 -->
 
@@ -149,9 +144,17 @@ $(document).ready(function(){
 		      belowOrigin: true
 	    });
 	
-	   $("input[name=nickname]").each(function(){
+	   $("input[name=nickname]").each(function(){ //로그인 유저가 해당 글의 글쓴이가 아닌 다른 유저일 때, 투표이미지/투표결과 감춤
 			if(session_login == $(this).val()){
-				$('img[alt='+this.id+']'+'.voteimg').css("display", "none"); //this.id는 해당 list의 num값
+				$('img[alt='+this.id+']'+'.voteimg').css("display", "none"); //투표이미지 감춤, this.id는 해당 list의 num값
+			}
+			if(session_login != $(this).val() && $(this).attr("class") == ""){ 
+				//해당 글의 글쓴이랑 로그인유저랑 다를때 투표결과 감춤, 해당 글에 투표하지 않았다면 투표결과 감춤. 투표하면 바로 결과 표시(ajax)
+				$("#v1."+this.id).css("display", "none");
+				$("#v2."+this.id).css("display", "none");
+				$("#v3."+this.id).css("display", "none");
+				$("#v4."+this.id).css("display", "none");
+				$("#v5."+this.id).css("display", "none");
 			}
 		})
 });
@@ -185,14 +188,20 @@ $(document).ready(function() {
 	
 
 					var vote_num = responseData.split("/");
+					//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
 					$('input[name=num]').attr("id",vote_num[0]);
 					 $('#v1.'+t.alt).text(vote_num[1]);
 					 $('#v2.'+t.alt).text(vote_num[2]);
 					 $('#v3.'+t.alt).text(vote_num[3]);
 					 $('#v4.'+t.alt).text(vote_num[4]);
 					 $('#v5.'+t.alt).text(vote_num[5]);
+					$("#v1."+t.alt).css("display", "block");
+					$("#v2."+t.alt).css("display", "block");
+					$("#v3."+t.alt).css("display", "block");
+					$("#v4."+t.alt).css("display", "block");
+					$("#v5."+t.alt).css("display", "block");
 
-						//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
+						
 					$('.voteimg[alt='+t.alt+']').each (function() {
 						if(vote_num[0] == this.id){
 							$(this).attr("src", "img/votecomplete.jpg");
@@ -246,22 +255,27 @@ $(document).ready(function() {
 
 <!-- 카드 리스트 -->
 <c:forEach var="xxx" items="${boardList}" varStatus="status">
-<input type="hidden" name="nickname" value="${xxx.author}" id="${xxx.num}">
+<input type="hidden" name="nickname" value="${xxx.author}" id="${xxx.num}" class="${xxx.vote_num}">
 <input type="hidden" name="num" value="${xxx.num}" id="${xxx.vote_num}">
 <div class="container memo" style="width: 80%">
   <div class="card">
     <div class="info">
-      <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;<br><font size="2px">${xxx.writeday}</font>
+      <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;${xxx.num}<br><font size="2px">${xxx.writeday}</font>
       <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
-	<c:if test="${xxx.author == login.nickname}">
+	
 	<div class="option-button">
         <a class='dropdown-button' id='dropdown-button-${xxx.num}' data-activates='dropdown-${xxx.num}'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-${xxx.num}' class='dropdown-content'>
+        <c:if test="${xxx.author == login.nickname}">
           <li><a class="edit">Edit</a></li>
           <li><a class="remove">Remove</a></li>
+      	</c:if>
+      	 <c:if test="${xxx.author != login.nickname}">
+      	  <li><a class="remove">신고하기</a></li>
+      	 </c:if>
         </ul>
       </div>
-      </c:if>
+
     </div><!-- end option button -->
     <div class="card-content" style="overflow: hidden;">
     <table>
