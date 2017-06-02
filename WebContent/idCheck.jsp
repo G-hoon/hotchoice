@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
   
 <%
- System.out.println("idCheck");
   String userid = request.getParameter("userid");
   SqlSession sess = MySqlSessionFactory.openSession();
    int result = 0;
@@ -15,7 +14,6 @@
   }finally{
 	  sess.close();
   }
-  System.out.println("result:" + result);
    if(result == 0 ){
 	   out.print("아이디 사용 가능");
    }else{

@@ -257,7 +257,7 @@ $(document).ready(function() {
 <c:forEach var="xxx" items="${boardList}" varStatus="status">
 <input type="hidden" name="nickname" value="${xxx.author}" id="${xxx.num}" class="${xxx.vote_num}">
 <input type="hidden" name="num" value="${xxx.num}" id="${xxx.vote_num}">
-<div class="container memo" style="width: 80%">
+<div class="container memo" style="width: 70%">
   <div class="card">
     <div class="info">
       <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;${xxx.num}<br><font size="2px">${xxx.writeday}</font>
@@ -280,9 +280,8 @@ $(document).ready(function() {
     <div class="card-content" style="overflow: hidden;">
     <table>
     <tr><td colspan="5"><b>${xxx.title}</b></td></tr>
-    <tr><td colspan="5"><a href="BoardRetrieveServlet?num=${xxx.num}"  style="text-decoration:none; color: inherit;">${xxx.content}</a><br></td></tr>
+    <tr><td colspan="5">${xxx.content}<br></td></tr>
     </table>
-  
 <div id="c1" style="border: 1px; float:left; width: 110px; padding:10px;">
 <table bordercolor=black id="tbl">
 <c:if test="${xxx.vimage1 eq null && xxx.vcontent1 ne null }">
@@ -385,7 +384,6 @@ $(document).ready(function() {
 <div class="${xxx.num}" id="v5" align="center">${xxx.votecount5}</div>
 </div>
 </c:if>
-
     </div>
     <div class="footer">
       <i class="material-icons log-footer-icon star icon-button">star</i><span class="star-count">0</span>

@@ -72,10 +72,35 @@ function reset_info(){
 	$('input[name=passwd]').val(passwd);
 	$('input[name=passwd1]').val(passwd);
 	$('input[name=nickname]').val(nickname);
+	$('#result2').text("");
+	$('#result3').text("");
+	$('#result4').text("");
 }
-function success(){
+function success(form){
+	if($('input[name=passwd1]').val()){
+		
+	}
 	alert('수정이 완료되었습니다.');
+	form.action = "MemberUpdateController";
 }
+
+function remove_member(form){
+	if (confirm('정말로 탈퇴하시겠습니까?')) {
+		if (confirm('모든 데이터가 삭제됩니다. \n 정말로 탈퇴하시겠습니까?')){
+			var remove_confirm = prompt("비밀번호를 입력해주십시오.");
+			if(remove_confirm == passwd){
+				form.action = "MemberRemoveController";
+				alert("정상 탈퇴되었습니다. \n 그동안 이용해주셔서 감사합니다.");
+			}else{
+				alert("비밀번호가 틀렸습니다.")
+			}
+		}
+	} else {
+	    // Do nothing!
+	}
+	
+}
+
 $(document).ready(function() {
 	reset_info();
 	if(gender == "m"){
@@ -84,6 +109,7 @@ $(document).ready(function() {
 		$('input:radio[name=gender]:input[id=w]').attr("checked", true);
 	}
 	$('span').css('font-size', '13px');
+
 	console.log($('span').css('font-size'));
 })
 
@@ -115,7 +141,7 @@ function openMenu(evt, menuName) {
   <h3>개인정보 변경하기</h3>
   <p>현재 개인정보 변경은 비밀번호와 닉네임만 가능합니다.<br>
 회원정보는 로그아웃 이후, 다시 로그인 하면 적용됩니다.</p>
-  <form action="MemberUpdateController" method="get">
+  <form name="form" method="get">
   <div class="myinfo" style="width: 480px; background-color: white; background: rgba(255, 255, 255, 0.5); font-size: 17px;">
   <table width="100%">
   <tr><td height="10px"></td></tr>
@@ -128,12 +154,15 @@ function openMenu(evt, menuName) {
 	
 	<tr><td align="center" width="30%">성별</td><td>남<input type="radio" name="gender" id="m" disabled>&nbsp;&nbsp;
 	여<input type="radio"  name="gender" id="w" disabled></td></tr>  
-	<tr><td align="center" colspan="3">  <input type="submit" value="정보수정" onclick="success()">&nbsp;&nbsp;
-    <input type="button" value="취소" onclick="reset_info()"> </td></tr>
+	<tr><td align="center" colspan="3">  
+	<button onclick="success(form)">정보수정</button>&nbsp;&nbsp;
+    <input type="button" value="취소" onclick="reset_info()"> &nbsp;&nbsp;
+    <button  onclick="remove_member(form)">회원탈퇴</button>
+    </td></tr>
   </table>
-
   </div>
   </form>
+  <div style="height: 150px;"></div>
 </div>
 
 <div id="mylist" class="tabcontent">

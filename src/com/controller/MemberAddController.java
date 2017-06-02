@@ -32,10 +32,10 @@ public class MemberAddController extends HttpServlet {
 		String month_zero = "0";
 		String day_zero="0";
 		if(Integer.parseInt(month) > 9){
-			month_zero = null;
+			month_zero = "";
 		}
 		if(Integer.parseInt(day) > 9){
-			day_zero = null;
+			day_zero = "";
 		}
 		String dates = year+month_zero+month+day_zero+day;
 		System.out.println("dates: "+dates);
