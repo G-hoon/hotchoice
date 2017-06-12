@@ -138,6 +138,7 @@ img.picture {
 
 </script>
 <form action="BoardSearchServlet" method="get">
+
 <table width="100%" bgcolor="#ef5350" height="55px" style="margin-top: auto 0; table-layout: fixed; position:fixed; z-index: 3;"> 
 <tr><td style="margin-left: 5px"><font size="6" color="white"><a href="BoardListServlet" style="text-decoration:none; color: inherit;">&nbsp;&nbsp;HOT CHOICE</a></font></td>
 <td width="70px" ><div class="input-field col s12 m4">
@@ -190,6 +191,9 @@ img.picture {
       <li><a href="#" class="submenu">follows</a></li>
       <li><a href="#" class="submenu">followers</a></li>
       <li><a href="#" class="submenu">Today's HOT CHOICE</a></li>
+      <c:if test="${sessionScope.login.state == 2}">
+     <li><a href="#" class="submenu">ADMIN</a></li>
+     </c:if>
       </ul>
       </div>
 </div>

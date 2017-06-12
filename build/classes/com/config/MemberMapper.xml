@@ -29,7 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    where nickname = #{nickname}
   </select>
   
- 
+   <delete id="removeMember" parameterType="String">
+  delete from member where userid = #{userid}
+  </delete>
+  
  
   <insert id="addMember" parameterType="MemberDTO">
     insert into

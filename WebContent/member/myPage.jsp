@@ -80,17 +80,17 @@ function success(form){
 	if($('input[name=passwd1]').val()){
 		
 	}
-	alert('수정이 완료되었습니다.');
+	alert('수정이 완료되었습니다. \n 업데이트를 위해 로그아웃 됩니다.');
 	form.action = "MemberUpdateController";
 }
 
 function remove_member(form){
 	if (confirm('정말로 탈퇴하시겠습니까?')) {
-		if (confirm('모든 데이터가 삭제됩니다. \n 정말로 탈퇴하시겠습니까?')){
+		if (confirm('모든 데이터가 삭제됩니다. \n정말로 탈퇴하시겠습니까?')){
 			var remove_confirm = prompt("비밀번호를 입력해주십시오.");
 			if(remove_confirm == passwd){
 				form.action = "MemberRemoveController";
-				alert("정상 탈퇴되었습니다. \n 그동안 이용해주셔서 감사합니다.");
+				alert("정상 탈퇴되었습니다. \n그동안 이용해주셔서 감사합니다.");
 			}else{
 				alert("비밀번호가 틀렸습니다.")
 			}

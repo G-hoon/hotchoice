@@ -9,18 +9,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/check.js?v=1"></script>
 <script type="text/javascript" src="js/datesgenerator.js?v=2"></script>
+<script type="text/javascript" src="js/picker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
 <script type="text/javascript">
 $(document).ready(function() {
 	$('select').material_select();
 });
-
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 20 // Creates a dropdown of 15 years to control year
+  });
 </script>
 <style type="text/css">
 body {
     background-color: #ECEFF1;
 }
-
+select{
+    overflow-y: auto !important;
+}
 /* Authentication */
 .auth {
   margin-top: 50px;
@@ -139,13 +145,13 @@ a {
                 </div>
                 <div align="center">
    					<div class="input-field col s12 m4">
-                  	<select id="year" name="year">
+                  	<select id="year" name="year"   class="browser-default">
 						<option>년도</option>
 					</select>
 					</div>
 					<div class="input-field col s12 m4">
-					<select id="month" name="month">
-						<option>월</option>
+					<select class="browser-default" id="month" name="month">
+						<option class="left circle">월</option>
 					</select>
 					</div>
 					<div class="input-field col s12 m4">
@@ -156,6 +162,7 @@ a {
                 </div>
                 <div class="col s12">
                <div class="center">
+               <br>
 				 	 <input class="with-gap" style="" type="radio" name="gender" value="m" id="test3" /><label for="test3">남</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				 <input class="with-gap"  type="radio" name="gender" value="w" id="test4" /><label for="test4">여</label><br><br>
 				 </div>

@@ -7,12 +7,14 @@ public class MemberDTO {
 	private String dates;
 	private String gender;
 	private String picture;
+	private int state;
 	
 	public MemberDTO(){
 		super();
 	}
 
-	public MemberDTO(String userid, String passwd, String nickname, String dates, String gender, String picture) {
+	public MemberDTO(String userid, String passwd, String nickname, String dates, String gender, String picture,
+			int state) {
 		super();
 		this.userid = userid;
 		this.passwd = passwd;
@@ -20,8 +22,17 @@ public class MemberDTO {
 		this.dates = dates;
 		this.gender = gender;
 		this.picture = picture;
+		this.state = state;
 	}
 	
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
 	public String getPicture() {
 		return picture;
 	}

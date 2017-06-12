@@ -12,19 +12,45 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>HOT CHOICE</title>
 <link rel="stylesheet" type="text/css" href="css/card.css" />
 <link rel="stylesheet" type="text/css" href="css/modal.css" />
 <link rel="stylesheet" type="text/css" href="css/write_button.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.js"></script> 
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
 <style type="text/css">
 
-/* */
-textarea
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
 {
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+.content
+{
+	width: 100%;
     resize: none;
+    border-style: none; 
+    border-color: transparent;
+    font-size: 13px;
+}
+.title
+{
+	font-weight:bold; 
+	width:100%; 
+	font-size:15px;
+	border-style: none;
+	border-color: transparent;
 }
 .vcontent
 {
@@ -80,7 +106,7 @@ window.onload = function() {
 				//모달 창의 투표버튼의 id와 myImg (미리보기 이미지) id 값 비교해서 해당 값의 투표 버튼만 활성화,
 				this.style.display = 'block';
 				this.alt = board_num;
-				var modal_vote = $(this);
+		//		var modal_vote = $(this);
 				if(vote_num == this.id){ //해당 유저가 투표한 번호에 해당하는 모달창 투표버튼 이미지 투표완료로 바꾸기
 					 $(this).attr("src", "img/votecomplete.jpg");
 					 $(this).css('pointer-events', 'none');
@@ -143,7 +169,21 @@ $(document).ready(function(){
 	   $('.dropdown-button').dropdown({
 		      belowOrigin: true
 	    });
-	
+	   $('.modal').modal({
+		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		      opacity: .5, // Opacity of modal background
+		      inDuration: 300, // Transition in duration
+		      outDuration: 200, // Transition out duration
+		      startingTop: '4%', // Starting top style attribute
+		      endingTop: '10%', // Ending top style attribute
+		      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+		        alert("Ready");
+		        console.log(modal, trigger);
+		      },
+		      complete: function() { alert('Closed'); } // Callback for Modal close
+		    }
+		  );
+       $('.modal-trigger').leanModal(); //글 수정 모달창
 	   $("input[name=nickname]").each(function(){ //로그인 유저가 해당 글의 글쓴이가 아닌 다른 유저일 때, 투표이미지/투표결과 감춤
 			if(session_login == $(this).val()){
 				$('img[alt='+this.id+']'+'.voteimg').css("display", "none"); //투표이미지 감춤, this.id는 해당 list의 num값
@@ -162,7 +202,6 @@ $(document).ready(function(){
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
 <script>
 $(document).ready(function() {
-	
     $('.voteimg').click(function (event)
     {
 		console.log("num : "+ this.id);
@@ -234,10 +273,9 @@ $(document).ready(function() {
 
 </head>
 <body>
-<!--  z-index: 3; position: absolute; -->
-<div id="myModal" class="modal" style="z-index: 999;">
-  <span class="close" onclick="document.getElementsByClassName('modal').style.display='none'" style="z-index: 999">&times;</span>
-  <img class="modal-content" id="img01" >
+<div id="myModal" class="modal-vote" style="z-index: 999;">
+  <span class="close" onclick="document.getElementsByClassName('modal-vote').style.display='none'" style="z-index: 999">&times;</span>
+  <img class="modal-vote-content" id="img01" >
   <div class="voting"><img src=img/voteimg.jpg class="voteimg" name="modal" id="1"><img src=img/voteimg.jpg class="voteimg" name="modal" id="2" style="display: none;">
   <img src=img/voteimg.jpg class="voteimg" name="modal" id="3" style="display: none;"><img src=img/voteimg.jpg class="voteimg" name="modal" id="4" style="display: none;">
   <img src=img/voteimg.jpg class="voteimg" name="modal" id="5" style="display: none;">
@@ -253,6 +291,18 @@ $(document).ready(function() {
   </a>
 </div>
 
+  <!-- Modal Structure -->
+   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Click to open modal</a>
+ <div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+  </div>
+</div>
 <!-- 카드 리스트 -->
 <c:forEach var="xxx" items="${boardList}" varStatus="status">
 <input type="hidden" name="nickname" value="${xxx.author}" id="${xxx.num}" class="${xxx.vote_num}">
@@ -260,27 +310,28 @@ $(document).ready(function() {
 <div class="container memo" style="width: 70%">
   <div class="card">
     <div class="info">
-      <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;${xxx.num}<br><font size="2px">${xxx.writeday}</font>
+      <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;<br><font size="2px">${xxx.writeday}</font>
       <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
 	
 	<div class="option-button">
         <a class='dropdown-button' id='dropdown-button-${xxx.num}' data-activates='dropdown-${xxx.num}'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-${xxx.num}' class='dropdown-content'>
         <c:if test="${xxx.author == login.nickname}">
-          <li><a class="edit">Edit</a></li>
+          <li><a class="modal-trigger" href="#modal1">Edit</a></li>
           <li><a class="remove">Remove</a></li>
       	</c:if>
       	 <c:if test="${xxx.author != login.nickname}">
-      	  <li><a class="remove">신고하기</a></li>
+      	  <li><a class="warn">신고하기</a></li>
       	 </c:if>
         </ul>
       </div>
 
     </div><!-- end option button -->
     <div class="card-content" style="overflow: hidden;">
-    <table>
-    <tr><td colspan="5"><b>${xxx.title}</b></td></tr>
-    <tr><td colspan="5">${xxx.content}<br></td></tr>
+    <table style="width:100%; ">
+    <tr><td><input type="text" class="title" value="${xxx.title}" readonly="readonly"> </td></tr>
+    <tr><td><textarea class="content" readonly="readonly">${xxx.content}</textarea><br></td></tr>
+    
     </table>
 <div id="c1" style="border: 1px; float:left; width: 110px; padding:10px;">
 <table bordercolor=black id="tbl">

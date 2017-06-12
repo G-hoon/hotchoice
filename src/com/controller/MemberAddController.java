@@ -39,7 +39,7 @@ public class MemberAddController extends HttpServlet {
 		}
 		String dates = year+month_zero+month+day_zero+day;
 		System.out.println("dates: "+dates);
-		MemberDTO dto = new MemberDTO(userid, passwd, nickname.trim(), dates, gender, picture);
+		MemberDTO dto = new MemberDTO(userid, passwd, nickname.trim(), dates, gender, picture, 0);
         MemberService service = new MemberService();
         String target = "";
         try {

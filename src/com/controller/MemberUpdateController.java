@@ -38,6 +38,7 @@ public class MemberUpdateController extends HttpServlet {
         try {
 			service.upadteMember(map);
 			target = "Home"; //HomeController
+			session.invalidate();
 		} catch (CommonException e) {
 			target = "error.jsp";
 			request.setAttribute("message", e.getMessage());
