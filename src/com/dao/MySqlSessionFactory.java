@@ -20,8 +20,7 @@ public class MySqlSessionFactory {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-   sqlSessionFactory =
-	new SqlSessionFactoryBuilder().build(inputStream);
+   sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream);
   }//end static
    public static SqlSession openSession(){
 	   return sqlSessionFactory.openSession();

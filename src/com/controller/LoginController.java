@@ -30,20 +30,15 @@ public class LoginController extends HttpServlet {
 		map.put("userid", userid);
 		map.put("passwd", passwd);		
 		MemberService service = new MemberService();
-		System.out.println("map: "+map);
 		String target = "";
 		try {
 			MemberDTO dto = service.login(map);
 			if(dto==null){
-				
 				//아이디 또는 비번 틀리다.
 				target = "LoginFormController";
-				System.out.println("target1: "+target);
 			}else{
 				// 아이디와 비번이 모두 맞다.
-				
 				target = "Home";
-				System.out.println("target2: "+target);
 				HttpSession session = request.getSession();
 				session.setAttribute("login", dto);
 			}

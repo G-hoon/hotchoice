@@ -25,24 +25,21 @@ public class BoardUpdateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		String target="";
-		if(dto != null){
-			request.setCharacterEncoding("UTF-8");
-			String num = request.getParameter("num");
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			
-			HashMap<String, String> map= new HashMap<>();
-			map.put("a", num);
-			map.put("b", title);
-			map.put("d", content);
-			
-			BoardService service = new BoardService();
-			service.boardUpdate(map);
-			target="BoardListServlet";
-			}else{
-			target="LoginFormController";
-			request.setAttribute("loginFail", "로그인 후 시도하세요");
-			}
+	
+		request.setCharacterEncoding("UTF-8");
+		String num = request.getParameter("num");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		HashMap<String, String> map= new HashMap<>();
+		map.put("a", num);
+		map.put("b", title);
+		map.put("d", content);
+		
+		BoardService service = new BoardService();
+		service.boardUpdate(map);
+		target="BoardListServlet";
+
 
 		RequestDispatcher dis = request.getRequestDispatcher(target);
         dis.forward(request, response);

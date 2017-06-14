@@ -18,8 +18,7 @@ public class LoginFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		  RequestDispatcher dis =
-	        		request.getRequestDispatcher("login.html");
+		  RequestDispatcher dis = request.getRequestDispatcher("login.html");
 	        dis.forward(request, response);
 	        
 	}

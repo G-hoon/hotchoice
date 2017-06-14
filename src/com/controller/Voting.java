@@ -52,7 +52,7 @@ public class Voting extends HttpServlet {
 			map.put("b", vote_num1[i]); 
 			vote_count2[i] = service.Voting_result3(map);
 		}
-		response.setContentType("abc.jsp;charset=UTF-8");
+		response.setContentType("voting_ajax.jsp;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(rtd1.getVote_num()+"/");
 		out.print(vote_count2[0]+"/");

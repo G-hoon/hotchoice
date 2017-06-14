@@ -13,7 +13,6 @@ textarea
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
-<script src="js/jquery.validate.min.js"></script>
 <script src="js/fileupload.js"></script>
 <script type="text/javascript">
 

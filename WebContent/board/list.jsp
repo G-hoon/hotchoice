@@ -15,17 +15,18 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <title>HOT CHOICE</title>
 <link rel="stylesheet" type="text/css" href="css/card.css" />
 <link rel="stylesheet" type="text/css" href="css/modal.css" />
+<link rel="stylesheet" type="text/css" href="css/btn.css" />
 <link rel="stylesheet" type="text/css" href="css/write_button.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.js"></script> 
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style type="text/css">
 
 textarea:hover, 
-input:hover, 
+input[type=text]:hover, 
 textarea:active, 
-input:active, 
+input[type=text]:active, 
 textarea:focus, 
-input:focus,
+input[type=text]:focus,
 button:focus,
 button:active,
 button:hover,
@@ -36,16 +37,18 @@ label:focus,
     outline:0px !important;
     -webkit-appearance:none;
 }
-.content
+.content, .boardRetrieve_content
 {
+	background: transparent;
 	width: 100%;
     resize: none;
     border-style: none; 
     border-color: transparent;
     font-size: 13px;
 }
-.title
+.title, .boardRetrieve_title
 {
+	background: transparent;
 	font-weight:bold; 
 	width:100%; 
 	font-size:15px;
@@ -82,6 +85,21 @@ ul{
    list-style:none;
     padding-left:0px;
    }
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover 
+{
+     color:#00A0C6; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
+textarea{
+	resize: none;
+}
+
 </style>
 <script>
 
@@ -170,20 +188,19 @@ $(document).ready(function(){
 		      belowOrigin: true
 	    });
 	   $('.modal').modal({
-		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
-		      opacity: .5, // Opacity of modal background
+		      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+		      opacity: .8, // Opacity of modal background
 		      inDuration: 300, // Transition in duration
 		      outDuration: 200, // Transition out duration
 		      startingTop: '4%', // Starting top style attribute
 		      endingTop: '10%', // Ending top style attribute
 		      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-		        alert("Ready");
-		        console.log(modal, trigger);
+		       // alert("Ready");
+	//	        console.log(modal, trigger);
 		      },
-		      complete: function() { alert('Closed'); } // Callback for Modal close
+		    //  complete: function() { alert('Closed'); } // Callback for Modal close
 		    }
 		  );
-       $('.modal-trigger').leanModal(); //글 수정 모달창
 	   $("input[name=nickname]").each(function(){ //로그인 유저가 해당 글의 글쓴이가 아닌 다른 유저일 때, 투표이미지/투표결과 감춤
 			if(session_login == $(this).val()){
 				$('img[alt='+this.id+']'+'.voteimg').css("display", "none"); //투표이미지 감춤, this.id는 해당 list의 num값
@@ -202,6 +219,7 @@ $(document).ready(function(){
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
 <script>
 $(document).ready(function() {
+	//투표하기 버튼을 누르면, 투표 유무에 따라 이벤트 동작
     $('.voteimg').click(function (event)
     {
 		console.log("num : "+ this.id);
@@ -224,8 +242,6 @@ $(document).ready(function() {
 			},
 			success: function(responseData, status, xhr){
 	//			console.log("success", responseData, status);
-	
-
 					var vote_num = responseData.split("/");
 					//t.alt = 투표하기 버튼의 alt값(해당 card의 num값)
 					$('input[name=num]').attr("id",vote_num[0]);
@@ -239,8 +255,8 @@ $(document).ready(function() {
 					$("#v3."+t.alt).css("display", "block");
 					$("#v4."+t.alt).css("display", "block");
 					$("#v5."+t.alt).css("display", "block");
-
-						
+					
+					//그 게시물에 있는 투표하기 이미지 접근
 					$('.voteimg[alt='+t.alt+']').each (function() {
 						if(vote_num[0] == this.id){
 							$(this).attr("src", "img/votecomplete.jpg");
@@ -251,6 +267,7 @@ $(document).ready(function() {
 							 $(this).css('pointer-events', 'auto'); 
 						 }
 					})
+					//모달창에 있는 투표하기 이미지 접근
 					$('.voteimg[name=modal]').each(function(){
 						if(vote_num[0] == this.id){
 							$(this).attr("src", "img/votecomplete.jpg");
@@ -268,6 +285,104 @@ $(document).ready(function() {
 			}
 		});
     });
+	//글 수정하기 버튼 눌렀을때 ajax로 글 정보 불러오기
+    $('.edit').click(function (event){
+    $.ajax({
+		type:"get",
+		url:"BoardRetrieveServlet",
+		data:{
+			num: this.id
+		},
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+		success: function(responseData, status, xhr){
+			console.log("success", responseData, status);
+			/*
+		out.print(dto.getNum()+"/"); 0
+		out.print(dto.getTitle()+"/"); 1
+		out.print(dto.getAuthor()+"/"); 2
+		out.print(dto.getContent()+"/"); 3
+		out.print(vto.getVcontent1()+"/"); 4
+		out.print(vto.getVimage1()+"/"); 5
+		out.print(vto.getVcontent2()+"/"); 6
+		out.print(vto.getVimage2()+"/"); 7
+		out.print(vto.getVcontent3()+"/"); 8
+		out.print(vto.getVimage3()+"/"); 9 
+		out.print(vto.getVcontent4()+"/"); 10
+		out.print(vto.getVimage4()+"/"); 11
+		out.print(vto.getVcontent5()+"/"); 12
+		out.print(vto.getVimage5()); 13
+		
+			*/
+			var boardRetreive = responseData.split("/");
+			var vcontent1 = boardRetreive[4];
+			var vimage1 = boardRetreive[5];
+			var vcontent2 = boardRetreive[6];
+			var vimage2 = boardRetreive[7];
+			var vcontent3 = boardRetreive[8];
+			var vimage3 = boardRetreive[9];
+			var vcontent4 = boardRetreive[10];
+			var vimage4 = boardRetreive[11];
+			var vcontent5 = boardRetreive[12];
+			var vimage5 = boardRetreive[13];
+			$('.boardRetrieve_title').val(boardRetreive[1]);
+			$('.boardRetrieve_content').text(boardRetreive[3]);
+			$('.boardRetrieve_vcontent1').text(vcontent1);
+			$('.boardRetrieve_vcontent2').text(vcontent2);
+			console.log(vimage1+" / "+vcontent1);
+			if(vcontent1 == "o"){
+				$('.mark_o').css("display", "block");
+				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
+				$('.boardRetrieve_allbox1').css("display", "none");
+			}else if(vimage1 != "null" && vcontent1 != "null"){
+				$('.boardRetrieve_vimage1').attr("src", "/project/images/"+vimage1);
+				$('.mark_o').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
+				$('.boardRetrieve_allbox1').css("display", "blcok");
+			}else if(vimage1 != "null"  && vcontent1 == "null"){
+				$('.boardRetrieve_vimage1').attr("src", "/project/images/"+vimage1);
+				$('.mark_o').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage1').css("display", "block");
+				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
+				$('.boardRetrieve_allbox1').css("display", "none");
+			}else if(vimage1 == "null"  && vcontent1 != "null"){
+				$('.mark_o').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent1').css("display", "block");
+				$('.boardRetrieve_allbox1').css("display", "none");
+			}
+			
+			if(vcontent2 == "x"){
+				$('.mark_x').css("display", "block");
+				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
+				$('.boardRetrieve_allbox2').css("display", "none");
+			}else if(vimage2 != "null" && vcontent2 != "null"){
+				$('.boardRetrieve_vimage2').attr("src", "/project/images/"+vimage2);
+				$('.mark_x').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
+				$('.boardRetrieve_allbox2').css("display", "blcok");
+			}else if(vimage2 != "null"  && vcontent2 == "null"){
+				$('.boardRetrieve_vimage2').attr("src", "/project/images/"+vimage2);
+				$('.mark_x').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage2').css("display", "block");
+				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
+				$('.boardRetrieve_allbox2').css("display", "none");
+			}else if(vimage2 == "null"  && vcontent2 != "null"){
+				$('.mark_x').css("display", "none");
+				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
+				$('.boardRetrieve_singlebox_vcontent2').css("display", "block");
+				$('.boardRetrieve_allbox2').css("display", "none");
+			}
+			
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});
+    })
 });
 </script>
 
@@ -292,15 +407,62 @@ $(document).ready(function() {
 </div>
 
   <!-- Modal Structure -->
-   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Click to open modal</a>
- <div id="modal1" class="modal">
+ <div id="modal1" class="modal" style="overflow: hidden; border-radius: 6px; padding: 5px;">
   <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-  </div>
+  <table style="width: 100%; padding: 8px;">
+  <tr><td><input type="text" class="boardRetrieve_title" style="font-size: 16px; background-color: yellow; opacity: 0.5;"></td></tr>
+  <tr><td><textarea class="boardRetrieve_content" style="background-color: yellow; opacity: 0.5;"></textarea></td></tr>
+    </table>
+<div style="overflow: hidden;">
+<div id="c1" style="border: 1px; width: 70px; padding:10px; float:left; margin-left: 10px;">
+<table bordercolor=black id="tbl" style="height: 100px;">
+<tr class="mark_o"><th><img src="img/o.jpg" alt="o" width=90></th></tr>
+<tr class="boardRetrieve_singlebox_vcontent1"><th>
+<textarea class="boardRetrieve_vcontent1" style="width: 7.5em; height: 7.5em; text-align-last: center;" readonly="readonly"></textarea></th></tr>
+<tr class="boardRetrieve_singlebox_vimage1"><th>
+<img src="" width=105 class="boardRetrieve_vimage1"></th></tr>
+<tr class="boardRetrieve_allbox1"><th><img class="boardRetrieve_vimage1" src="" width=105></th></tr>
+<tr class="boardRetrieve_allbox1"><th><textarea class="boardRetrieve_vcontent1" readonly="readonly"></textarea></th></tr>
+</table>
+</div>
+
+<div id="c2" style="border: 1px; width: 70px; padding:10px; float: left;  margin-left: 10px;">
+<table bordercolor=black id="tbl" style="height: 100px;">
+<tr class="mark_x"><th><img src="img/x.jpg" alt="x" width=90></th></tr>
+<tr class="boardRetrieve_singlebox_vcontent2"><th>
+<textarea class="boardRetrieve_vcontent2" style="width: 7.5em; height: 7.5em; text-align-last: center;" readonly="readonly"></textarea></th></tr>
+<tr class="boardRetrieve_singlebox_vimage2"><th>
+<img src="" width=105 class="boardRetrieve_vimage2"></th></tr>
+<tr class="boardRetrieve_allbox2"><th><img class="boardRetrieve_vimage2" src="" width=105></th></tr>
+<tr class="boardRetrieve_allbox2"><th><textarea class="boardRetrieve_vcontent2" readonly="readonly"></textarea></th></tr>
+</table>
+</div>
+
+
+</div><!-- 임시 -->
+  
+    </div><!-- modal-content end -->
+
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+      <br>
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">취소</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">확인</a>
+  </div>
+</div>
+ <div id="modal2" class="modal"  style="width: 300px; padding: 10px; overflow: hidden; border-radius: 10px;">
+  <div class="modal-content">
+    <h4>신고하기</h4>
+    <input class="with-gap" type="radio" name="warn" id="porn"><label for="porn">음란물</label> <br>
+    <input class="with-gap" type="radio" name="warn" id="abuse"><label for="abuse">욕설/타인비방</label> <br>
+    <input class="with-gap" type="radio" name="warn" id="adv"><label for="adv">광고</label><br>
+    <input class="with-gap" type="radio" name="warn" id="etc"><label for="etc">기타</label><br>
+    <br>
+    <b>신고내용</b>
+    <textarea rows="8" cols="30" style="resize: none;"></textarea>
+    </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">취소하기</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">신고하기</a>
   </div>
 </div>
 <!-- 카드 리스트 -->
@@ -312,16 +474,15 @@ $(document).ready(function() {
     <div class="info">
       <a class="username">${xxx.author}</a> &nbsp;&nbsp;&nbsp;<br><font size="2px">${xxx.writeday}</font>
       <input type="hidden" class="vote_num" name="vote_num" value="${xxx.vote_num}">
-	
 	<div class="option-button">
         <a class='dropdown-button' id='dropdown-button-${xxx.num}' data-activates='dropdown-${xxx.num}'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-${xxx.num}' class='dropdown-content'>
         <c:if test="${xxx.author == login.nickname}">
-          <li><a class="modal-trigger" href="#modal1">Edit</a></li>
+          <li><a class="edit" href="#modal1" id="${xxx.num}">Edit</a></li>
           <li><a class="remove">Remove</a></li>
       	</c:if>
       	 <c:if test="${xxx.author != login.nickname}">
-      	  <li><a class="warn">신고하기</a></li>
+      	  <li><a class="warn"  href="#modal2">신고하기</a></li>
       	 </c:if>
         </ul>
       </div>
