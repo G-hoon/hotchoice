@@ -37,7 +37,16 @@ public class BoardRetrieveServlet extends HttpServlet {
 		out.print(vto.getVcontent4()+"/");
 		out.print(vto.getVimage4()+"/");
 		out.print(vto.getVcontent5()+"/");
-		out.print(vto.getVimage5());
+		out.print(vto.getVimage5()+"/");
+		if(vto.getVcontent3() == null && vto.getVimage3() == null){
+			out.print(2);
+		}else if(vto.getVcontent5() != null || vto.getVimage5() != null){
+			out.print(5);
+		}else if(vto.getVcontent4() != null || vto.getVimage4() != null){
+			out.print(4);
+		}else if(vto.getVcontent3() != null || vto.getVimage3() != null){
+			out.print(3);
+		}
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

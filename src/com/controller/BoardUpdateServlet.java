@@ -22,15 +22,12 @@ import com.service.BoardService;
 @WebServlet("/BoardUpdateServlet")
 public class BoardUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		MemberDTO dto = (MemberDTO)session.getAttribute("login");
-		String target="";
 	
 		request.setCharacterEncoding("UTF-8");
 		String num = request.getParameter("num");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
+		System.out.println(num+" / "+title+" / "+content);
 		HashMap<String, String> map= new HashMap<>();
 		map.put("a", num);
 		map.put("b", title);
@@ -38,10 +35,8 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		BoardService service = new BoardService();
 		service.boardUpdate(map);
-		target="BoardListServlet";
 
-
-		RequestDispatcher dis = request.getRequestDispatcher(target);
+		RequestDispatcher dis = request.getRequestDispatcher("BoardListServlet");
         dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

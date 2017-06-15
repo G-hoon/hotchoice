@@ -55,7 +55,7 @@ label:focus,
 	border-style: none;
 	border-color: transparent;
 }
-.vcontent
+.vcontent, .boardRetrieve_vcontent1, .boardRetrieve_vcontent2, .boardRetrieve_vcontent3, .boardRetrieve_vcontent4, .boardRetrieve_vcontent5
 {
 	width: 7.5em;
 	height: 3em;
@@ -214,6 +214,7 @@ $(document).ready(function(){
 				$("#v5."+this.id).css("display", "none");
 			}
 		})
+
 });
 </script>
 <!-- 이 유저가 투표를 안했다면, 투표하게끔 -->
@@ -295,7 +296,8 @@ $(document).ready(function() {
 		},
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(responseData, status, xhr){
-			console.log("success", responseData, status);
+	//		console.log("success", responseData, status);
+			console.log("  ");
 			/*
 		out.print(dto.getNum()+"/"); 0
 		out.print(dto.getTitle()+"/"); 1
@@ -313,6 +315,7 @@ $(document).ready(function() {
 		out.print(vto.getVimage5()); 13
 		
 			*/
+			
 			var boardRetreive = responseData.split("/");
 			var vcontent1 = boardRetreive[4];
 			var vimage1 = boardRetreive[5];
@@ -324,57 +327,57 @@ $(document).ready(function() {
 			var vimage4 = boardRetreive[11];
 			var vcontent5 = boardRetreive[12];
 			var vimage5 = boardRetreive[13];
+			var counter = boardRetreive[14];
+			
+			$('.boardRetrieve_num').val(boardRetreive[0]);
 			$('.boardRetrieve_title').val(boardRetreive[1]);
 			$('.boardRetrieve_content').text(boardRetreive[3]);
 			$('.boardRetrieve_vcontent1').text(vcontent1);
 			$('.boardRetrieve_vcontent2').text(vcontent2);
-			console.log(vimage1+" / "+vcontent1);
+			$('.boardRetrieve_vcontent3').text(vcontent3);
+			$('.boardRetrieve_vcontent4').text(vcontent4);
+			$('.boardRetrieve_vcontent5').text(vcontent5);
 			if(vcontent1 == "o"){
 				$('.mark_o').css("display", "block");
 				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
 				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
 				$('.boardRetrieve_allbox1').css("display", "none");
-			}else if(vimage1 != "null" && vcontent1 != "null"){
-				$('.boardRetrieve_vimage1').attr("src", "/project/images/"+vimage1);
-				$('.mark_o').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
-				$('.boardRetrieve_allbox1').css("display", "blcok");
-			}else if(vimage1 != "null"  && vcontent1 == "null"){
-				$('.boardRetrieve_vimage1').attr("src", "/project/images/"+vimage1);
-				$('.mark_o').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage1').css("display", "block");
-				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
-				$('.boardRetrieve_allbox1').css("display", "none");
-			}else if(vimage1 == "null"  && vcontent1 != "null"){
-				$('.mark_o').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent1').css("display", "block");
-				$('.boardRetrieve_allbox1').css("display", "none");
 			}
-			
 			if(vcontent2 == "x"){
 				$('.mark_x').css("display", "block");
 				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
 				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
 				$('.boardRetrieve_allbox2').css("display", "none");
-			}else if(vimage2 != "null" && vcontent2 != "null"){
-				$('.boardRetrieve_vimage2').attr("src", "/project/images/"+vimage2);
-				$('.mark_x').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
-				$('.boardRetrieve_allbox2').css("display", "blcok");
-			}else if(vimage2 != "null"  && vcontent2 == "null"){
-				$('.boardRetrieve_vimage2').attr("src", "/project/images/"+vimage2);
-				$('.mark_x').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage2').css("display", "block");
-				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
-				$('.boardRetrieve_allbox2').css("display", "none");
-			}else if(vimage2 == "null"  && vcontent2 != "null"){
-				$('.mark_x').css("display", "none");
-				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent2').css("display", "block");
-				$('.boardRetrieve_allbox2').css("display", "none");
+			}
+			for(var i=1;i<=5;++i){
+				$("#c"+i).css("display","none");
+			}
+			console.log(counter);
+			for(var i=1;i<=counter;++i){
+				var vimage = eval("vimage"+i);
+				var vcontent = eval("vcontent"+i);
+				$("#c"+i).css("display","block");
+				if(vimage != "null" && vcontent != "null"){
+					$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
+					$('.mark_o').css("display", "none");
+					$('.mark_x').css("display", "none");
+					$('.boardRetrieve_singlebox_vimage'+i).hide();
+					$('.boardRetrieve_singlebox_vcontent'+i).hide();
+					$(".boardRetrieve_allbox"+i).show();
+				}else if(vimage != "null"  && vcontent == "null"){
+					$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
+					$('.mark_o').css("display", "none");
+					$('.mark_x').css("display", "none");
+					$('.boardRetrieve_singlebox_vimage'+i).show();
+					$('.boardRetrieve_singlebox_vcontent'+i).hide();
+					$(".boardRetrieve_allbox"+i).hide();
+				}else if(vimage == "null"  && vcontent != "null"){
+					$('.mark_o').css("display", "none");
+					$('.mark_x').css("display", "none");
+					$('.boardRetrieve_singlebox_vimage'+i).hide();
+					$('.boardRetrieve_singlebox_vcontent'+i).show();
+					$(".boardRetrieve_allbox"+i).hide();
+				}
 			}
 			
 		},
@@ -406,15 +409,18 @@ $(document).ready(function() {
   </a>
 </div>
 
-  <!-- Modal Structure -->
- <div id="modal1" class="modal" style="overflow: hidden; border-radius: 6px; padding: 5px;">
-  <div class="modal-content">
-  <table style="width: 100%; padding: 8px;">
-  <tr><td><input type="text" class="boardRetrieve_title" style="font-size: 16px; background-color: yellow; opacity: 0.5;"></td></tr>
-  <tr><td><textarea class="boardRetrieve_content" style="background-color: yellow; opacity: 0.5;"></textarea></td></tr>
-    </table>
-<div style="overflow: hidden;">
-<div id="c1" style="border: 1px; width: 70px; padding:10px; float:left; margin-left: 10px;">
+  <!-- 글 수정하기 modal 창 -->
+  <form id="boardupdate" action="BoardUpdateServlet" method="get">
+<div id="modal1" class="modal" style="overflow: hidden; border-radius: 6px; padding: 5px;">
+<div class="modal-content">
+<table style="width: 80%; padding: 8px;">
+<tr><td width="40px"  valign="top">제목</td><td><input name="title" type="text" class="boardRetrieve_title" style="font-size: 16px; background-color:#fcff7f;">
+<input name="num" type="hidden" class="boardRetrieve_num" value="">
+</td></tr>
+<tr><td width="40px"  valign="top">내용</td><td><textarea name="content" class="boardRetrieve_content" style="background-color:#fcff7f; height: 60px;"></textarea></td></tr>
+</table>
+<div style="overflow: hidden; position:relative; clear: both;" >
+<div id="c1" style="border: 1px; width: 70px; padding:10px; float:left;">
 <table bordercolor=black id="tbl" style="height: 100px;">
 <tr class="mark_o"><th><img src="img/o.jpg" alt="o" width=90></th></tr>
 <tr class="boardRetrieve_singlebox_vcontent1"><th>
@@ -426,7 +432,7 @@ $(document).ready(function() {
 </table>
 </div>
 
-<div id="c2" style="border: 1px; width: 70px; padding:10px; float: left;  margin-left: 10px;">
+<div id="c2" style="border: 1px; width: 70px; padding:10px; float: left; margin-left: 40px;">
 <table bordercolor=black id="tbl" style="height: 100px;">
 <tr class="mark_x"><th><img src="img/x.jpg" alt="x" width=90></th></tr>
 <tr class="boardRetrieve_singlebox_vcontent2"><th>
@@ -438,17 +444,51 @@ $(document).ready(function() {
 </table>
 </div>
 
+<div id="c3" style="border: 1px; width: 70px; padding:10px; float: left; margin-left: 40px; display: none;">
+<table bordercolor=black id="tbl" style="height: 100px;">
+<tr class="boardRetrieve_singlebox_vcontent3"><th>
+<textarea class="boardRetrieve_vcontent3" style="width: 7.5em; height: 7.5em; text-align-last: center;" readonly="readonly"></textarea></th></tr>
+<tr class="boardRetrieve_singlebox_vimage3"><th>
+<img src="" width=105 class="boardRetrieve_vimage3"></th></tr>
+<tr class="boardRetrieve_allbox3"><th><img class="boardRetrieve_vimage3" src="" width=105></th></tr>
+<tr class="boardRetrieve_allbox3"><th><textarea class="boardRetrieve_vcontent3" readonly="readonly"></textarea></th></tr>
+</table>
+</div>
+
+<div id="c4" style="border: 1px; width: 70px; padding:10px; float: left; margin-left: 40px; display: none;">
+<table bordercolor=black id="tbl" style="height: 100px;">
+<tr class="boardRetrieve_singlebox_vcontent4"><th>
+<textarea class="boardRetrieve_vcontent4" style="width: 7.5em; height: 7.5em; text-align-last: center;" readonly="readonly"></textarea></th></tr>
+<tr class="boardRetrieve_singlebox_vimage4"><th>
+<img src="" width=105 class="boardRetrieve_vimage4"></th></tr>
+<tr class="boardRetrieve_allbox4"><th><img class="boardRetrieve_vimage4" src="" width=105></th></tr>
+<tr class="boardRetrieve_allbox4"><th><textarea class="boardRetrieve_vcontent4" readonly="readonly"></textarea></th></tr>
+</table>
+</div>
+
+<div id="c5" style="border: 1px; width: 70px; padding:10px; float: left; margin-left: 40px; display: none;">
+<table bordercolor=black id="tbl" style="height: 100px;">
+<tr class="boardRetrieve_singlebox_vcontent5"><th>
+<textarea class="boardRetrieve_vcontent5" style="width: 7.5em; height: 7.5em; text-align-last: center;" readonly="readonly"></textarea></th></tr>
+<tr class="boardRetrieve_singlebox_vimage5"><th>
+<img src="" width=105 class="boardRetrieve_vimage5"></th></tr>
+<tr class="boardRetrieve_allbox5"><th><img class="boardRetrieve_vimage5" src="" width=105></th></tr>
+<tr class="boardRetrieve_allbox5"><th><textarea class="boardRetrieve_vcontent5" readonly="readonly"></textarea></th></tr>
+</table>
+</div>
 
 </div><!-- 임시 -->
-  
-    </div><!-- modal-content end -->
+ ※투표항목 변경은 투표의 혼란을 방지하기 위해 수정을 금지합니다.
+</div><!-- modal-content end -->
 
   <div class="modal-footer">
-      <br>
-    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">취소</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">확인</a>
+ 
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat " style="margin-right: 10px;">취소</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('boardupdate').submit();"]>확인</a>
   </div>
 </div>
+</form>
+<!-- modal1 end -->
  <div id="modal2" class="modal"  style="width: 300px; padding: 10px; overflow: hidden; border-radius: 10px;">
   <div class="modal-content">
     <h4>신고하기</h4>
@@ -477,13 +517,13 @@ $(document).ready(function() {
 	<div class="option-button">
         <a class='dropdown-button' id='dropdown-button-${xxx.num}' data-activates='dropdown-${xxx.num}'><i class="material-icons icon-button">more_vert</i></a>
         <ul id='dropdown-${xxx.num}' class='dropdown-content'>
-        <c:if test="${xxx.author == login.nickname}">
+       <c:if test="${xxx.author == login.nickname}">
           <li><a class="edit" href="#modal1" id="${xxx.num}">Edit</a></li>
           <li><a class="remove">Remove</a></li>
-      	</c:if>
-      	 <c:if test="${xxx.author != login.nickname}">
+    	</c:if>
+       <c:if test="${xxx.author != login.nickname}">
       	  <li><a class="warn"  href="#modal2">신고하기</a></li>
-      	 </c:if>
+       </c:if>
         </ul>
       </div>
 
