@@ -411,7 +411,8 @@ $(document).ready(function() {
 
   <!-- 글 수정하기 modal 창 -->
   <form id="boardupdate" action="BoardUpdateServlet" method="get">
-<div id="modal1" class="modal" style="overflow: hidden; border-radius: 6px; padding: 5px;">
+<div id="modal1" class="modal" style="overflow: hidden; border-radius: 8px; padding: 5px;">
+<div style="background-color: #ef5350; width: 100%; padding: 10px; margin: -5px; overflow: auto;"><font color="white">작성 글 수정</font></div>
 <div class="modal-content">
 <table style="width: 80%; padding: 8px;">
 <tr><td width="40px"  valign="top">제목</td><td><input name="title" type="text" class="boardRetrieve_title" style="font-size: 16px; background-color:#fcff7f;">
@@ -478,11 +479,11 @@ $(document).ready(function() {
 </div>
 
 </div><!-- 임시 -->
- ※투표항목 변경은 투표의 혼란을 방지하기 위해 수정을 금지합니다.
+ 
 </div><!-- modal-content end -->
 
   <div class="modal-footer">
- 
+   <a>※투표항목 변경은 투표의 혼란과 결과왜곡을 방지하기 위해 수정을 금지합니다.</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat " style="margin-right: 10px;">취소</a>
     <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('boardupdate').submit();"]>확인</a>
   </div>
@@ -638,7 +639,7 @@ $(document).ready(function() {
 </c:if>
     </div>
     <div class="footer">
-      <i class="material-icons log-footer-icon star icon-button">star</i><span class="star-count">0</span>
+      <i class="material-icons log-footer-icon star icon-button" style="color:#ff9980">star</i><span class="star-count">0</span>
     </div>
   </div>
 </div>
