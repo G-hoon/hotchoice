@@ -157,8 +157,8 @@ body {
             <li><a><i class="material-icons">search</i></a></li>
         </ul>
 
-        <div class="right">
-            <ul>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
                     <a><i class="material-icons">vpn_key</i></a>
                 </li>
@@ -166,7 +166,7 @@ body {
                     <a><i class="material-icons">lock_open</i></a>
                 </li>
             </ul>
-        </div>
+
     </div>
 </nav>
 

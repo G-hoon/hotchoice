@@ -17,10 +17,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" type="text/css" href="css/modal.css" />
 <link rel="stylesheet" type="text/css" href="css/btn.css" />
 <link rel="stylesheet" type="text/css" href="css/write_button.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.js"></script> 
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style type="text/css">
 
+<style type="text/css">
+.blank1{
+	height: 40px;
+}
 textarea:hover, 
 input[type=text]:hover, 
 textarea:active, 
@@ -81,24 +82,8 @@ label:focus,
    
 }
 
-ul{
-   list-style:none;
-    padding-left:0px;
-   }
-a {
-    color: #0060B6;
-    text-decoration: none;
-}
 
-a:hover 
-{
-     color:#00A0C6; 
-     text-decoration:none; 
-     cursor:pointer;  
-}
-textarea{
-	resize: none;
-}
+
 
 </style>
 <script>

@@ -8,6 +8,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 uri="http://java.sun.com/jsp/jstl/functions" %>    
 <script type="text/javascript" src="js/check.js?v=2"></script>
 <style>
+.blank1{
+	height: 60px;
+}
 div.tab, div.myinfo {
 	width: 480px;
     overflow: hidden;
