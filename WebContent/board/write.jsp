@@ -6,13 +6,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" 
 uri="http://java.sun.com/jsp/jstl/functions" %>
-<style type="text/css">
-textarea
-{
-    resize: none;
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
 <script src="js/fileupload.js"></script>
 <script type="text/javascript">
 
