@@ -8,24 +8,15 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
 import com.entity.BoardDTO;
+import com.entity.FavoriteDTO;
 import com.entity.ListDTO;
 import com.entity.RecordDTO;
 import com.entity.VoteDTO;
 
 public class BoardService {
 
-	String namespace = "com.acorn.BoardMapper.";
-	 //전체 레코드 
-	 private int totalRecord(){
-		 SqlSession session = MySqlSessionFactory.openSession();
-		 int count = 0;	
-		 try{
-         count = session.selectOne("totalRecord");
-			}finally {
-				session.close();
-			}
-		 return count;
-	 }//end totalRecord
+	String namespace = "com.BoardMapper.";
+
 	 
 	//7. 검색
 	 public List<ListDTO> boardSearch(HashMap<String, String> map){
@@ -89,9 +80,6 @@ public class BoardService {
 	 }//end boardRetrieve
 	
 
-	
-	
-	
 	//2.글쓰기
 	public void boardWrite(BoardDTO dto){
 		SqlSession session = MySqlSessionFactory.openSession();
@@ -113,6 +101,28 @@ public class BoardService {
 			session.close();
 		}
     }
+	//즐겨찾기 추가
+	public void Favorite_write(FavoriteDTO fto){
+		SqlSession session = MySqlSessionFactory.openSession();
+		try{
+		 session.insert(namespace+"Favorite_Write", fto);
+		 session.commit();
+		}finally {
+			session.close();
+		}
+	}
+	//즐겨찾기 수 보여주기
+	 public int Favorite_result(int num){
+		 SqlSession session = MySqlSessionFactory.openSession();
+			int fto = 0;
+		   try{
+			   fto = session.selectOne(namespace+"Favorite_result", num);
+			}finally {
+				session.close();
+			}
+		   return fto;
+	 }
+	
 	///투표하기
 	public void Voting(RecordDTO dto){
 		SqlSession session = MySqlSessionFactory.openSession();

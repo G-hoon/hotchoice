@@ -9,7 +9,7 @@ import com.entity.MemberDTO;
 import com.exception.CommonException;
 
 public class MemberService {
-    private String namespace="com.acorn.MemberMapper.";
+    private String namespace="com.MemberMapper.";
     
     
     public MemberDTO myPage(String userid)

@@ -42,7 +42,7 @@ public class Voting extends HttpServlet {
 		
 		///////////////////////////////
 		String vote_num1[] = {"1","2","3","4","5"};
-		int vote_count2[] = new int[5];
+		int vote_count[] = new int[5];
 		HashMap<String, String> map = new HashMap<>();
 		
 		map.put("a", num);
@@ -50,16 +50,16 @@ public class Voting extends HttpServlet {
 		RecordDTO rtd1 = service.Voting_result2(map);
 		for(int i=0;i<vote_num1.length;++i){
 			map.put("b", vote_num1[i]); 
-			vote_count2[i] = service.Voting_result3(map);
+			vote_count[i] = service.Voting_result3(map);
 		}
 		response.setContentType("voting_ajax.jsp;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(rtd1.getVote_num()+"/");
-		out.print(vote_count2[0]+"/");
-		out.print(vote_count2[1]+"/");
-		out.print(vote_count2[2]+"/");
-		out.print(vote_count2[3]+"/");
-		out.print(vote_count2[4]);
+		out.print(vote_count[0]+"/");
+		out.print(vote_count[1]+"/");
+		out.print(vote_count[2]+"/");
+		out.print(vote_count[3]+"/");
+		out.print(vote_count[4]);
 
 	}
 

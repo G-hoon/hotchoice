@@ -273,104 +273,122 @@ $(document).ready(function() {
     });
 	//글 수정하기 버튼 눌렀을때 ajax로 글 정보 불러오기
     $('.edit').click(function (event){
-    $.ajax({
-		type:"get",
-		url:"BoardRetrieveServlet",
-		data:{
-			num: this.id
-		},
-		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		success: function(responseData, status, xhr){
-	//		console.log("success", responseData, status);
-			console.log("  ");
-			/*
-		out.print(dto.getNum()+"/"); 0
-		out.print(dto.getTitle()+"/"); 1
-		out.print(dto.getAuthor()+"/"); 2
-		out.print(dto.getContent()+"/"); 3
-		out.print(vto.getVcontent1()+"/"); 4
-		out.print(vto.getVimage1()+"/"); 5
-		out.print(vto.getVcontent2()+"/"); 6
-		out.print(vto.getVimage2()+"/"); 7
-		out.print(vto.getVcontent3()+"/"); 8
-		out.print(vto.getVimage3()+"/"); 9 
-		out.print(vto.getVcontent4()+"/"); 10
-		out.print(vto.getVimage4()+"/"); 11
-		out.print(vto.getVcontent5()+"/"); 12
-		out.print(vto.getVimage5()); 13
-		
-			*/
+	    $.ajax({
+			type:"get",
+			url:"BoardRetrieveServlet",
+			data:{
+				num: this.id
+			},
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+			success: function(responseData, status, xhr){
+		//		console.log("success", responseData, status);
+				console.log("  ");
+				/*
+			out.print(dto.getNum()+"/"); 0
+			out.print(dto.getTitle()+"/"); 1
+			out.print(dto.getAuthor()+"/"); 2
+			out.print(dto.getContent()+"/"); 3
+			out.print(vto.getVcontent1()+"/"); 4
+			out.print(vto.getVimage1()+"/"); 5
+			out.print(vto.getVcontent2()+"/"); 6
+			out.print(vto.getVimage2()+"/"); 7
+			out.print(vto.getVcontent3()+"/"); 8
+			out.print(vto.getVimage3()+"/"); 9 
+			out.print(vto.getVcontent4()+"/"); 10
+			out.print(vto.getVimage4()+"/"); 11
+			out.print(vto.getVcontent5()+"/"); 12
+			out.print(vto.getVimage5()); 13
 			
-			var boardRetreive = responseData.split("/");
-			var vcontent1 = boardRetreive[4];
-			var vimage1 = boardRetreive[5];
-			var vcontent2 = boardRetreive[6];
-			var vimage2 = boardRetreive[7];
-			var vcontent3 = boardRetreive[8];
-			var vimage3 = boardRetreive[9];
-			var vcontent4 = boardRetreive[10];
-			var vimage4 = boardRetreive[11];
-			var vcontent5 = boardRetreive[12];
-			var vimage5 = boardRetreive[13];
-			var counter = boardRetreive[14];
-			
-			$('.boardRetrieve_num').val(boardRetreive[0]);
-			$('.boardRetrieve_title').val(boardRetreive[1]);
-			$('.boardRetrieve_content').text(boardRetreive[3]);
-			$('.boardRetrieve_vcontent1').text(vcontent1);
-			$('.boardRetrieve_vcontent2').text(vcontent2);
-			$('.boardRetrieve_vcontent3').text(vcontent3);
-			$('.boardRetrieve_vcontent4').text(vcontent4);
-			$('.boardRetrieve_vcontent5').text(vcontent5);
-			if(vcontent1 == "o"){
-				$('.mark_o').css("display", "block");
-				$('.boardRetrieve_singlebox_vimage1').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
-				$('.boardRetrieve_allbox1').css("display", "none");
-			}
-			if(vcontent2 == "x"){
-				$('.mark_x').css("display", "block");
-				$('.boardRetrieve_singlebox_vimage2').css("display", "none");
-				$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
-				$('.boardRetrieve_allbox2').css("display", "none");
-			}
-			for(var i=1;i<=5;++i){
-				$("#c"+i).css("display","none");
-			}
-			console.log(counter);
-			for(var i=1;i<=counter;++i){
-				var vimage = eval("vimage"+i);
-				var vcontent = eval("vcontent"+i);
-				$("#c"+i).css("display","block");
-				if(vimage != "null" && vcontent != "null"){
-					$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
-					$('.mark_o').css("display", "none");
-					$('.mark_x').css("display", "none");
-					$('.boardRetrieve_singlebox_vimage'+i).hide();
-					$('.boardRetrieve_singlebox_vcontent'+i).hide();
-					$(".boardRetrieve_allbox"+i).show();
-				}else if(vimage != "null"  && vcontent == "null"){
-					$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
-					$('.mark_o').css("display", "none");
-					$('.mark_x').css("display", "none");
-					$('.boardRetrieve_singlebox_vimage'+i).show();
-					$('.boardRetrieve_singlebox_vcontent'+i).hide();
-					$(".boardRetrieve_allbox"+i).hide();
-				}else if(vimage == "null"  && vcontent != "null"){
-					$('.mark_o').css("display", "none");
-					$('.mark_x').css("display", "none");
-					$('.boardRetrieve_singlebox_vimage'+i).hide();
-					$('.boardRetrieve_singlebox_vcontent'+i).show();
-					$(".boardRetrieve_allbox"+i).hide();
+				*/
+				
+				var boardRetreive = responseData.split("/");
+				var vcontent1 = boardRetreive[4];
+				var vimage1 = boardRetreive[5];
+				var vcontent2 = boardRetreive[6];
+				var vimage2 = boardRetreive[7];
+				var vcontent3 = boardRetreive[8];
+				var vimage3 = boardRetreive[9];
+				var vcontent4 = boardRetreive[10];
+				var vimage4 = boardRetreive[11];
+				var vcontent5 = boardRetreive[12];
+				var vimage5 = boardRetreive[13];
+				var counter = boardRetreive[14];
+				
+				$('.boardRetrieve_num').val(boardRetreive[0]);
+				$('.boardRetrieve_title').val(boardRetreive[1]);
+				$('.boardRetrieve_content').text(boardRetreive[3]);
+				$('.boardRetrieve_vcontent1').text(vcontent1);
+				$('.boardRetrieve_vcontent2').text(vcontent2);
+				$('.boardRetrieve_vcontent3').text(vcontent3);
+				$('.boardRetrieve_vcontent4').text(vcontent4);
+				$('.boardRetrieve_vcontent5').text(vcontent5);
+				if(vcontent1 == "o"){
+					$('.mark_o').css("display", "block");
+					$('.boardRetrieve_singlebox_vimage1').css("display", "none");
+					$('.boardRetrieve_singlebox_vcontent1').css("display", "none");
+					$('.boardRetrieve_allbox1').css("display", "none");
 				}
+				if(vcontent2 == "x"){
+					$('.mark_x').css("display", "block");
+					$('.boardRetrieve_singlebox_vimage2').css("display", "none");
+					$('.boardRetrieve_singlebox_vcontent2').css("display", "none");
+					$('.boardRetrieve_allbox2').css("display", "none");
+				}
+				for(var i=1;i<=5;++i){
+					$("#c"+i).css("display","none");
+				}
+				console.log(counter);
+				for(var i=1;i<=counter;++i){
+					var vimage = eval("vimage"+i);
+					var vcontent = eval("vcontent"+i);
+					$("#c"+i).css("display","block");
+					if(vimage != "null" && vcontent != "null"){
+						$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
+						$('.mark_o').css("display", "none");
+						$('.mark_x').css("display", "none");
+						$('.boardRetrieve_singlebox_vimage'+i).hide();
+						$('.boardRetrieve_singlebox_vcontent'+i).hide();
+						$(".boardRetrieve_allbox"+i).show();
+					}else if(vimage != "null"  && vcontent == "null"){
+						$('.boardRetrieve_vimage'+i).attr("src", "/project/images/"+vimage);
+						$('.mark_o').css("display", "none");
+						$('.mark_x').css("display", "none");
+						$('.boardRetrieve_singlebox_vimage'+i).show();
+						$('.boardRetrieve_singlebox_vcontent'+i).hide();
+						$(".boardRetrieve_allbox"+i).hide();
+					}else if(vimage == "null"  && vcontent != "null"){
+						$('.mark_o').css("display", "none");
+						$('.mark_x').css("display", "none");
+						$('.boardRetrieve_singlebox_vimage'+i).hide();
+						$('.boardRetrieve_singlebox_vcontent'+i).show();
+						$(".boardRetrieve_allbox"+i).hide();
+					}
+				}
+				
+			},
+			error:function(error){
+				console.log(error);
 			}
-			
-		},
-		error:function(error){
-			console.log(error);
-		}
-	});
+		});
     })
+    $('.star').click(function (event){
+    	var root_this = this;
+    	    	$.ajax({
+    				type:"get",
+    				url:"FavoriteServlet",
+    				data:{
+    					num: this.id
+    				},
+    				success: function(responseData, status, xhr){
+    					console.log("responsedata : "+responseData+" id : "+root_this.id);
+    					$('#'+root_this.id+'.star-count').text(responseData);
+
+    				},
+    				error:function(error){
+    					console.log(error);
+    				}
+    			});
+    	    });
 });
 </script>
 
@@ -624,7 +642,7 @@ $(document).ready(function() {
 </c:if>
     </div>
     <div class="footer">
-      <i class="material-icons log-footer-icon star icon-button" style="color:#ff9980">star</i><span class="star-count">0</span>
+      <i class="material-icons log-footer-icon star icon-button" id="${xxx.num}"  style="color:#ff9980">star</i><span class="star-count" id="${xxx.num}">0</span>
     </div>
   </div>
 </div>
